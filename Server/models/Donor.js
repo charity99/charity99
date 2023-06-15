@@ -3,13 +3,18 @@ const Schema = mongoose.Schema;
 
 // Create User Schema
 
-const Users = new Schema(
+const Donor = new Schema(
   {
+    role: {
+      type: String,
+      required: true,
+    },
+
     fullName: {
       type: String,
       required: true,
     },
-    emailAddress: {
+    email: {
       type: String,
       required: true,
       unique: true,
@@ -19,11 +24,7 @@ const Users = new Schema(
       type: String,
       required: true,
     },
-    passWord: {
-      type: String,
-      required: true,
-    },
-    userToken: {
+    password: {
       type: String,
       required: true,
     },
@@ -31,4 +32,4 @@ const Users = new Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Users", Users);
+module.exports = mongoose.model("Users", Donor);
