@@ -6,7 +6,6 @@ const mongoose = require("mongoose");
 const newLocal = "./routes/Router";
 const Routes = require(newLocal);
 const dbURI = process.env.DBURI;
-// test
 const app = express();
 app.use(cors());
 app.use(express.json());
