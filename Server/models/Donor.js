@@ -28,8 +28,11 @@ const Donor = new Schema(
       type: String,
       required: true,
     },
+    isDeleted: {
+      type: Boolean,
+    },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Users", Donor);
+module.exports = mongoose.model("Donors", Donor);
