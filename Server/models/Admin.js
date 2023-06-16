@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 // Create User Schema
 
-const Beneficer = new Schema(
+const Admin = new Schema(
   {
     role: {
       type: String,
@@ -28,11 +28,6 @@ const Beneficer = new Schema(
       required: true,
     },
 
-    image: {
-      filename: String,
-      type: String,
-      // data: String,
-    },
     isDeleted: {
       type: Boolean,
       default: false,
@@ -41,4 +36,4 @@ const Beneficer = new Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Beneficer", Beneficer);
+module.exports = mongoose.model("Admin", Admin);
