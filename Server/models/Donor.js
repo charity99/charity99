@@ -7,6 +7,7 @@ const Donor = new Schema(
   {
     role: {
       type: String,
+      default: "donor",
       required: true,
     },
 
@@ -30,6 +31,7 @@ const Donor = new Schema(
     },
     isDeleted: {
       type: Boolean,
+      default: false,
     },
   },
   { timestamps: true }

@@ -7,6 +7,7 @@ const Admin = new Schema(
   {
     role: {
       type: String,
+      default: "admin",
       required: true,
     },
     fullName: {

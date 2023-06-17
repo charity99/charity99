@@ -9,7 +9,19 @@ const verifyJWT = (req, res, next) => {
     _id: user._id,
     role: user.role,
   };
-
   next();
 };
+
+// const verifyJWT2 = (req, res, next) => {
+//   const authHeader = req.body.headers.Authorization;
+//   console.log(req.body.headers.Authorization);
+//   const token = authHeader && authHeader.split(" ")[1];
+//   if (authHeader == "Bearer null") return res.json({ error: "Null token" });
+//   const user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+//   req.user = {
+//     _id: user._id,
+//     role: user.role,
+//   };
+//   next();
+// };
 module.exports = { verifyJWT };

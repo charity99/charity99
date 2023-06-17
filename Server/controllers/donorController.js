@@ -7,6 +7,8 @@ function tokenGenerator({ _id, role, fullName, email }) {
   const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET);
   return accessToken;
 }
+  
+///////////////////
 
 const handleNewUser = async (req, res) => {
   const { role, fullName, email, phone, password } = req.body;
@@ -40,6 +42,8 @@ const handleNewUser = async (req, res) => {
     });
 };
 // handle login for donor
+
+///////////////////
 
 const handleLogin = async (req, res) => {
   const { email, password } = req.body;
@@ -77,6 +81,8 @@ const getAllDonors = async (req, res) => {
   }
 };
 
+///////////////////
+
 // get one donor
 const getDonor = async (req, res) => {
   const userId = req.user._id;
@@ -94,9 +100,12 @@ const getDonor = async (req, res) => {
     return res.status(500).json({ message: "Error retrieving user data" });
   }
 };
+
+///////////////////
+
 const deleteDonor = async (req, res) => {
   const adminRole = req.user.role;
-  if (adminRole === "Admin") {
+  if (adminRole === "admin") {
     try {
       const { id } = req.params;
       const { isDeleted } = req.body;
@@ -122,10 +131,52 @@ const deleteDonor = async (req, res) => {
   }
 };
 
+///////////////////
+
+const handleUpdateDonor = async (req, res) => {
+  const donorId = req.user._id;
+  const donorRole = req.user.role;
+  if (donorRole === "donor") {
+    try {
+      const { fullName, email, phone, password } = req.body;
+      const saltRounds = 10;
+      const salt = await bcrypt.genSalt(saltRounds);
+      const hashedPassword = await bcrypt.hash(password, salt);
+      console.log(donorId);
+      const updateDonor = await donor
+        .findOneAndUpdate(
+          { _id: donorId },
+          {
+            $set: {
+              fullName: fullName,
+              email: email,
+              phone: phone,
+              password: hashedPassword,
+            },
+          },
+          { new: true }
+        )
+        .exec();
+
+      if (updateDonor.deletedCount === 0) {
+        return res.status(204).json({ message: `User ID ${userId} not found` });
+      }
+
+      return res.send("donor is Updated");
+    } catch (error) {
+      // Handle any errors that occur during the database query
+      return res.status(500).json({ message: "Error retrieving user data" });
+    }
+  } else {
+    return res.status(400).json({ message: "User must be admin" });
+  }
+};
+
 module.exports = {
   handleNewUser,
   handleLogin,
   getAllDonors,
   getDonor,
   deleteDonor,
+  handleUpdateDonor,
 };
