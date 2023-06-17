@@ -89,4 +89,6 @@ router.post(
   donationForm.handleAddForm
 );
 
+router.get("/getForms", donationForm.getForms);
+
 module.exports = router;

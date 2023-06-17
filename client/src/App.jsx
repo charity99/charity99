@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import "./App.css";
 import Nav from "./pages/nav";
 import Login from "./pages/Login";
