@@ -1,4 +1,5 @@
-import React from 'react';
+/* eslint-disable jsx-a11y/img-redundant-alt */
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import razan from "../images/razan.jpg";
 import farah from "../images/farah.png";
@@ -6,7 +7,23 @@ import fahmi from "../images/fahmi.jpg";
 import hamza from "../images/hamza.png";
 import dania from "../images/dania.jpg";
 import abd from "../images/abd.png";
+import axios from "axios";
 function AboutUs() {
+  const [aboutUsData, setAboutUsData] = useState({});
+
+  useEffect(() => {
+    const getAboutData = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/aboutus");
+        setAboutUsData(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    getAboutData();
+  }, []);
+
   return (
     <>
       {/* Hero section in about us */}
@@ -55,75 +72,118 @@ function AboutUs() {
 
       <section className="bg-white dark:bg-gray-900">
         <div className="container px-6 py-10 mx-auto">
-          <h1 className="text-2xl font-semibold text-gray-800 capitalize text-center lg:text-3xl dark:text-white">استكشف مميزاتنا الرائعة </h1>
+          <h1 className="text-2xl font-semibold text-gray-800 capitalize text-center lg:text-3xl dark:text-white">
+            استكشف مميزاتنا الرائعة{" "}
+          </h1>
 
           <div className="grid grid-cols-1 gap-8 mt-8 xl:mt-12 xl:gap-12 md:grid-cols-2 xl:grid-cols-3">
             <div className="p-8 space-y-3 border-2 border-blue-400 dark:border-black-300 rounded-xl">
               <span className="inline-block text-blue-500 dark:text-blue-400">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-8 h-8"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"
+                  />
                 </svg>
               </span>
 
-              <h1 className="text-xl font-semibold text-gray-700 capitalize dark:text-white">جمع المتبرعين بالمستفيدين</h1>
+              <h1 className="text-xl font-semibold text-gray-700 capitalize dark:text-white">
+                جمع المتبرعين بالمستفيدين
+              </h1>
 
               <p className="text-gray-500 dark:text-gray-300">
-                نعمل على جمعهم من خلال هذه المنصة بطريقة سريعة مما يجعل عملية التبرع أكثر سهولة               </p>
-
-
+                نعمل على جمعهم من خلال هذه المنصة بطريقة سريعة مما يجعل عملية
+                التبرع أكثر سهولة{" "}
+              </p>
             </div>
 
             <div className="p-8 space-y-3 border-2 border-blue-400 dark:border-blue-300 rounded-xl">
               <span className="inline-block text-blue-500 dark:text-blue-400">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-8 h-8"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"
+                  />
                 </svg>
               </span>
 
-              <h1 className="text-xl font-semibold text-gray-700 capitalize dark:text-white">سهولة التبرع و معرفة حاجاتهم</h1>
+              <h1 className="text-xl font-semibold text-gray-700 capitalize dark:text-white">
+                سهولة التبرع و معرفة حاجاتهم
+              </h1>
 
               <p className="text-gray-500 dark:text-gray-300">
-                من خلالنا يمكنك معرفة جميع حاجات المنتفعين من التبرع و مساعدتهم  و التواصل معهم و تقديم اللازم لهم ، بالإضافة للتبرع من خلال المنصة بالمال             </p>
-
-
+                من خلالنا يمكنك معرفة جميع حاجات المنتفعين من التبرع و مساعدتهم
+                و التواصل معهم و تقديم اللازم لهم ، بالإضافة للتبرع من خلال
+                المنصة بالمال{" "}
+              </p>
             </div>
 
             <div className="p-8 space-y-3 border-2 border-blue-400 dark:border-blue-300 rounded-xl">
               <span className="inline-block text-blue-500 dark:text-blue-400">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-8 h-8"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
+                  />
                 </svg>
               </span>
 
-              <h1 className="text-xl font-semibold text-gray-700 capitalize dark:text-white"> تصميم سهل و مناسب للمستخدم</h1>
+              <h1 className="text-xl font-semibold text-gray-700 capitalize dark:text-white">
+                {" "}
+                تصميم سهل و مناسب للمستخدم
+              </h1>
 
               <p className="text-gray-500 dark:text-gray-300">
-يعّد تصميم المنصة سهل التعامل لجميع المستخدمين ، فلقد عملنا على توفير خدماتنا بطريقة مبسطة ، فيمكنك معرفة كيف يعمل حتى لو لم تستخدمه من قبل .              </p>
-
-
+                يعّد تصميم المنصة سهل التعامل لجميع المستخدمين ، فلقد عملنا على
+                توفير خدماتنا بطريقة مبسطة ، فيمكنك معرفة كيف يعمل حتى لو لم
+                تستخدمه من قبل .{" "}
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-
-
-
-
-
       {/* End features */}
 
-
-
       {/* ====== About Section Start */}
-      <section
-        className="bg-white text-black overflow-hidden pt-20 pb-12 lg:pt-[120px] lg:pb-[90px]"
-      >
+      <section className="bg-white text-black overflow-hidden pt-20 pb-12 lg:pt-[120px] lg:pb-[90px]">
         <div className="container mx-auto">
           <div className="-mx-7 flex flex-wrap items-center">
             <div className="w-full px-4 lg:w-6/12">
-              <div className="-mx-3 flex items-center sm:-mx-4" style={{ marginRight: "55px", marginLeft: "70px" }}>
+              <div
+                className="-mx-3 flex items-center sm:-mx-4"
+                style={{ marginRight: "55px", marginLeft: "70px" }}
+              >
                 <div className="w-full px-3 sm:px-4 xl:w-1/2">
                   <div className="py-3 sm:py-4">
                     <img
@@ -727,16 +787,26 @@ function AboutUs() {
                   لماذا تختارنا
                 </span>
                 <h3 className="text-black mb-8 text-3lg font-bold sm:text-4xl">
-                  أنت تنتمي إلينا، فكونك و تكونك كجزءٍ منا
+                  أنت تنتمي إلينا، فكونك و تكونك كجزءٍ منا{" "}
+                  {aboutUsData.about_title}
                 </h3>
                 <p className="text-body-color mb-8 text-base">
-                  أنت تنتمي  هو منصة تعمل كوسيط بين المتبرعين والمرضى الذين يحتاجون إلى المعدات الطبية والمال لإتمام علاجهم. يهدف الموقع إلى تسهيل عملية التبرع وتوفير الدعم المالي للمرضى الذين يواجهون تحديات في تكاليف العلاج الطبي والمعدات الضرورية. من خلال هذا الموقع، يمكن للمتبرعين تقديم تبرعاتهم بشكل سهل ومباشر، بينما يتمكن المرضى من طلب المساعدة والحصول على الدعم الذي يحتاجونه للعلاج الطبي اللازم.
-
+                  أنت تنتمي هو منصة تعمل كوسيط بين المتبرعين والمرضى الذين
+                  يحتاجون إلى المعدات الطبية والمال لإتمام علاجهم. يهدف الموقع
+                  إلى تسهيل عملية التبرع وتوفير الدعم المالي للمرضى الذين
+                  يواجهون تحديات في تكاليف العلاج الطبي والمعدات الضرورية. من
+                  خلال هذا الموقع، يمكن للمتبرعين تقديم تبرعاتهم بشكل سهل
+                  ومباشر، بينما يتمكن المرضى من طلب المساعدة والحصول على الدعم
+                  الذي يحتاجونه للعلاج الطبي اللازم.
+                  {aboutUsData.about_us}
                 </p>
 
-<p>
-  فقمنا بتوفير القدرة على معرفة حاجات المستفيدين حسب العديد من الفئات و مكنّا المتبرعين من رؤية مدى التغيير الذي يحدثه تبرعهم و إمكانية تبرعهم بالمال من خلال المنصة ، و قدرتهم على التواصل مع المستفيدين و معرفة ما يحتاجونه تماماً.
-</p>
+                <p>
+                  فقمنا بتوفير القدرة على معرفة حاجات المستفيدين حسب العديد من
+                  الفئات و مكنّا المتبرعين من رؤية مدى التغيير الذي يحدثه تبرعهم
+                  و إمكانية تبرعهم بالمال من خلال المنصة ، و قدرتهم على التواصل
+                  مع المستفيدين و معرفة ما يحتاجونه تماماً.
+                </p>
               </div>
             </div>
           </div>
@@ -752,8 +822,8 @@ function AboutUs() {
               فريقنا
             </h2>
             <p className="text-center text-black lg:mx-auto lg:w-8/12">
-              يتكون فريقنا المذهل من أفراد متحمسين يكرسون جهودهم لإحداث ثورة في إنشاء موقع للأشخاص الذين سيتم البرع لهم
-
+              يتكون فريقنا المذهل من أفراد متحمسين يكرسون جهودهم لإحداث ثورة في
+              إنشاء موقع للأشخاص الذين سيتم البرع لهم
             </p>
           </div>
           <div className="grid gap-24 md:grid-cols-3 md:gap-12">
@@ -877,7 +947,8 @@ function AboutUs() {
               </div>
               <div className="pt-4">
                 <h4 className="text-2xl  text-amber-700 dark:text-black">
-                  Fahmi Aldairi             </h4>
+                  Fahmi Aldairi{" "}
+                </h4>
                 <span className="block text-sm text-gray-500">
                   Quality assurance
                 </span>
@@ -1037,8 +1108,7 @@ function AboutUs() {
               </div>
               <div className="pt-4">
                 <h4 className="text-2xl  text-amber-700 dark:text-black">
-                  Abdulrahman Al-haleme
-                  {" "}
+                  Abdulrahman Al-haleme{" "}
                 </h4>
                 <span className="block text-sm text-gray-500">عضو بالفريق</span>
               </div>
@@ -1080,7 +1150,7 @@ function AboutUs() {
         </div>
       </div>
     </>
-  )
+  );
 }
 
 export default AboutUs;
