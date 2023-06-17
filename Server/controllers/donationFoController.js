@@ -125,4 +125,15 @@ const handleAddForm = async (req, res) => {
     });
 };
 
-module.exports = { handleAddForm };
+const getForms = async (req, res) => {
+  try {
+    const allData = await form.find();
+    res.status(200).json(allData);
+    console.log(allData);
+  } catch (err) {
+    console.log("Error retrieving data:", err);
+    res.status(500).json({ err: "An error occurred while getting data" });
+  }
+};
+
+module.exports = { handleAddForm, getForms };
