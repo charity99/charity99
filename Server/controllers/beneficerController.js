@@ -8,6 +8,8 @@ function tokenGenerator({ _id, role, fullName, email }) {
   return accessToken;
 }
 
+///////////////////
+
 const handleNewUser = async (req, res) => {
   const { role, fullName, email, phone, password, image } = req.body;
   // Check for duplicate usernames and emails in the db
@@ -40,6 +42,9 @@ const handleNewUser = async (req, res) => {
       res.status(500).send("Error registering user");
     });
 };
+
+///////////////////
+
 const handleLogin = async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password)
@@ -93,9 +98,11 @@ const getBeneficer = async (req, res) => {
   }
 };
 
+///////////////////
+
 const deleteBeneficer = async (req, res) => {
   const adminRole = req.user.role;
-  if (adminRole === "Admin") {
+  if (adminRole === "admin") {
     try {
       const { id } = req.params;
       const { isDeleted } = req.body;
@@ -121,10 +128,53 @@ const deleteBeneficer = async (req, res) => {
   }
 };
 
+///////////////////
+
+const handleUpdateBeneficer = async (req, res) => {
+  const beneficerId = req.user._id;
+  const beneficerRole = req.user.role;
+  if (beneficerRole === "beneficer") {
+    try {
+      const { fullName, email, phone, password, image } = req.body;
+      const saltRounds = 10;
+      const salt = await bcrypt.genSalt(saltRounds);
+      const hashedPassword = await bcrypt.hash(password, salt);
+      console.log(beneficerId);
+      const updateBeneficer = await beneficer
+        .findOneAndUpdate(
+          { _id: beneficerId },
+          {
+            $set: {
+              fullName: fullName,
+              email: email,
+              phone: phone,
+              password: hashedPassword,
+              image: image,
+            },
+          },
+          { new: true }
+        )
+        .exec();
+
+      if (updateBeneficer.deletedCount === 0) {
+        return res.status(204).json({ message: `User ID ${userId} not found` });
+      }
+
+      return res.send("beneficer is Updated");
+    } catch (error) {
+      // Handle any errors that occur during the database query
+      return res.status(500).json({ message: "Error retrieving user data" });
+    }
+  } else {
+    return res.status(400).json({ message: "User must be admin" });
+  }
+};
+
 module.exports = {
   handleNewUser,
   handleLogin,
   getAllBeneficer,
   getBeneficer,
   deleteBeneficer,
+  handleUpdateBeneficer,
 };

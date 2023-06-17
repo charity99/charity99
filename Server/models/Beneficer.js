@@ -7,6 +7,7 @@ const Beneficer = new Schema(
   {
     role: {
       type: String,
+      default: "beneficer",
       required: true,
     },
     fullName: {
@@ -29,8 +30,8 @@ const Beneficer = new Schema(
     },
 
     image: {
-      filename: String,
       type: String,
+      filename: String,
       // data: String,
     },
     isDeleted: {
