@@ -1,8 +1,13 @@
 .layer {
-    background-color: rgba(6, 6, 6, 0.438);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
+  background-color: rgba(6, 6, 6, 0.438);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+input,
+input::placeholder {
+  font: 0.9rem/3 sans-serif;
+}

@@ -3,14 +3,14 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import logo from "../images/youBelong.png"
+import logo from "../images/youBelong.png";
 const Signup = () => {
   const navigate = useNavigate();
   const [newUser, setNewUSer] = useState({
-    name: "",
+    fullName: "",
     email: "",
     password: "",
-    type: "client",
+    role: "beneficer",
   });
   const [error, seterror] = useState("");
   const [confirmPassword, setConfirmpass] = useState("");
@@ -28,22 +28,36 @@ const Signup = () => {
     if (confirmPassword != newUser.password) return true;
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    axios.post("http://localhost:5500/api/users", newUser).then((res) => {
-      res.data.error == "email already exists try another one"
-        ? seterror("email already exists try another one")
-        : seterror("");
-      if (res.data == true) return navigate("/login");
-    });
-  }
 
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/createNewBeneficer",
+        newUser
+      );
+      localStorage.setItem("token", response.data.token);
+      navigate("/");
+    } catch (error) {
+      // Handle the error here
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.Emessage
+      ) {
+        seterror(error.response.data.Emessage);
+      } else {
+        seterror("An error occurred. Please try again.");
+      }
+    }
+  }
+  console.log(">>", error);
   function handleCallBackResponse(response) {
     console.log("Encoded JWT: " + response.credential);
   }
 
   // useEffect(() => {
-    
+
   //   google.accounts.id.initialize({
   //     client_id:
   //       "7253351254-sqamgnt7l36cs9op6he04hoaena21vqd.apps.googleusercontent.com",
@@ -57,14 +71,8 @@ const Signup = () => {
   // }, []);
 
   return (
-    
-
-<section className="relative flex flex-wrap lg:h-screen lg:items-center">
-    <div className="mx-auto max-w-lg text-center">
-      
-
-    </div>
-
+    <section className="relative flex flex-wrap lg:h-screen lg:items-center">
+      <div className="mx-auto max-w-lg text-center"></div>
 
       <div className="w-full  sm:max-w-md">
         <div className="max-w-sm w-full text-black border-2 border-gray-200 bg-white shadow  p-5 py-6 sm:p-6 sm:rounded-lg ">
@@ -83,15 +91,16 @@ const Signup = () => {
                 htmlFor="name"
                 className={`block mb-2 text-sm font-medium `}
               >
-الاسم الكامل              </label>
+                الاسم الكامل{" "}
+              </label>
               <input
                 type="text"
                 id="name"
                 required
                 className={` w-full mt-2 px-3 py-2 text-black bg-transparent outline-none border shadow-sm rounded-lg`}
                 placeholder="ادخل اسمك"
-                name="name"
-                value={newUser.name}
+                name="fullName"
+                value={newUser.fullName}
                 onChange={(e) => {
                   setNewUSer({ ...newUser, [e.target.name]: e.target.value });
                 }}
@@ -118,7 +127,7 @@ const Signup = () => {
               />
               {!validateEmail(newUser) && newUser.email !== "" && (
                 <p className="text-red-600">
-      الرجاء ادخال البريد الالكترونيبشكل صحيح
+                  الرجاء ادخال البريد الالكترونيبشكل صحيح
                 </p>
               )}
               <span className="text-red-600">{error}</span>
@@ -144,7 +153,8 @@ const Signup = () => {
               />
               {!validatePassword(newUser) && newUser.password !== "" && (
                 <p className="text-red-600">
-                الرجاء ادخال الرقم االسري المكةن من 8 خانات , بدون احرف عربية فقط احرف انجليزية وحرف كبير وارقام و رمز مميز
+                  الرجاء ادخال الرقم االسري المكةن من 8 خانات , بدون احرف عربية
+                  فقط احرف انجليزية وحرف كبير وارقام و رمز مميز
                 </p>
               )}
             </div>
@@ -153,7 +163,8 @@ const Signup = () => {
                 htmlFor="password"
                 className={`block mb-2 text-sm font-medium`}
               >
-تأكيد كلمة السر              </label>
+                تأكيد كلمة السر{" "}
+              </label>
               <input
                 placeholder="تأكيد الرقم السري"
                 id="confirmPassword"
@@ -168,41 +179,41 @@ const Signup = () => {
               {validateConfirmPassword(confirmPassword, newUser) &&
                 confirmPassword !== "" && (
                   <p className="text-red-600">
-كلمة السرالتي ادخلتها لا تطابق كلمة السر المدخلة                  </p>
+                    كلمة السرالتي ادخلتها لا تطابق كلمة السر المدخلة{" "}
+                  </p>
                 )}
             </div>
             <button
               type="submit"
               className="w-full px-4 py-2 mb-2 text-white font-medium bg-[#4e94b5] hover:bg-white hover:text-black border hover:border-black rounded-lg duration-150"
             >
-انشاء حساب            </button>
+              انشاء حساب{" "}
+            </button>
           </form>
           <div className="mt-5">
             <p className="text-center">
-لديك حساب بالفعل              <span className="ml-1">
+              لديك حساب بالفعل{" "}
+              <span className="ml-1">
                 <Link
                   to={"/login"}
                   className=" font-medium text-[#4e94b5] hover:text-black hover:underline transition"
                 >
-تسجيل الدخول                </Link>
+                  تسجيل الدخول{" "}
+                </Link>
               </span>
             </p>
           </div>
         </div>
-   
+      </div>
 
-
-
-  </div>
-
-  <div className="relative h-64 w-full sm:h-96 lg:h-full lg:w-1/2">
-    <img
-      alt="Welcome"
-      src={logo}
-      className="absolute inset-0 h-full w-full object-cover"
-    />
-  </div>
-</section>
+      <div className="relative h-64 w-full sm:h-96 lg:h-full lg:w-1/2 max-md:hidden">
+        <img
+          alt="Welcome"
+          src={logo}
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+      </div>
+    </section>
   );
 };
 
