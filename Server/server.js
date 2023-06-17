@@ -9,6 +9,7 @@ const dbURI = process.env.DBURI;
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use("/images", express.static("images"));
 
 app.get("/", (req, res) => {
   res.send("Welcome");
