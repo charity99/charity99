@@ -191,9 +191,12 @@ const handleUpdateFormBydonor = async (req, res) => {
       .findOneAndUpdate(
         { _id: formId },
         {
+          $push: {
+            donorId: donorId, // Add the new donorId to the array
+          },
           $set: {
             donorPaid: donorPaid,
-            donorId: donorId,
+            // donorId: donorId,
             sumOfPaid: getPrevPaids.sumOfPaid + donorPaid,
           },
         },

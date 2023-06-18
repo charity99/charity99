@@ -7,7 +7,7 @@ import "../style/details.css";
 function BenDetails() {
   const [data, setData] = useState([]);
   let params = useParams();
-  let { beneficerId } = useParams();
+  let { formId } = useParams();
   console.log(">>>>", params);
   useEffect(() => {
     getDetailsData();
@@ -18,7 +18,7 @@ function BenDetails() {
     // console.log(id);
     try {
       const response = await axios.get(
-        `http://localhost:5000/getForms/${beneficerId}`
+        `http://localhost:5000/getForms/${formId}`
       );
       setData(response.data);
       console.log(response.data);
@@ -159,9 +159,12 @@ function BenDetails() {
               <div className="mt-8 shadow p-5 ">
                 قصتي : {data.DescriptionOfConsept}
               </div>
-              <div className="buttonPayment flex justify-center mt-10">
-                <Link to="Payment">تبرع</Link>
-              </div>
+              <Link to={`/pay/${formId}`}>
+                {/* to={`/BenDetails/${benefice._id}`} */}
+                <div className="buttonPayment flex justify-center mt-10">
+                  تبرع
+                </div>
+              </Link>
             </div>
           </div>
         </div>

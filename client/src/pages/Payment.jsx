@@ -1,16 +1,40 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import payment from "../images/payment.jpg";
 import Swal from "sweetalert2";
 import axios from "axios";
+import jwtDecode from "jwt-decode";
 
 function Payment() {
+  let params = useParams();
+  let { formId } = useParams();
+  console.log(">>>>", params);
+  const token = localStorage.getItem("token");
+  let tokendonorId = "";
+
+  if (token) {
+    try {
+      const decodedToken = jwtDecode(token);
+      tokendonorId = decodedToken._id;
+      // Use the extracted username and role variables as needed
+    } catch (error) {
+      console.error("Error decoding token:", error);
+      // Handle the error (e.g., show an error message, redirect the user, etc.)
+    }
+  } else {
+    console.error("No token found in localStorage");
+    // Handle the case where there is no token (e.g., show an error message, redirect the user, etc.)
+  }
+  console.log(tokendonorId);
+
   const [cardnumber, setCardNumber] = useState("");
   const [datecard, setDateCard] = useState("");
   const [cvc, setCvc] = useState("");
   const [cash, setCash] = useState("");
 
   const handlePayment = () => {
+    submitPayment();
+
     const cardNumber = document.getElementById("card-no").value;
     const cardRegex = /^(4\d{15}|5\d{15})$/;
     const today = new Date();
@@ -42,18 +66,35 @@ function Payment() {
       showAlert("غير صحيح CVC");
       return;
     }
-    submitPayment();
+    // submitPayment();
   };
 
   const submitPayment = () => {
     axios
-      .post("http://localhost:5000/payment")
+      .post("http://localhost:5000/formByDonor", {
+        formId: formId,
+        donorPaid: 50,
+        donorId: tokendonorId || "anonymous",
+      })
       .then(() => {
         showSuccessAlert("لقد تمت عملية الدفع بنجاح");
       })
       .catch(() => {
         showAlert("فشل في عملية الدفع ، من فضلك أعد المحاولة");
       });
+    if (localStorage.getItem("token")) {
+      axios
+        .post("http://localhost:5000/donorPaid", {
+          donorId: tokendonorId,
+          donorPaid: 50,
+        })
+        .then(() => {
+          console.log("Done");
+        })
+        .catch(() => {
+          console.log("faild");
+        });
+    }
   };
 
   const showSuccessAlert = () => {
@@ -74,7 +115,12 @@ function Payment() {
       confirmButtonText: "OK",
     });
   };
+  // console.log(cash);
 
+  const handleCash = () => {
+    const cashRegex = /^\d+$/;
+  };
+  // console.log(cash);
   return (
     <div
       className="min-h-screen bg-gray-100 text-gray-900 flex justify-center"
@@ -110,6 +156,7 @@ function Payment() {
                         name="card-holder"
                         className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm uppercase shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
                         placeholder="اسمك الكامل هنا"
+                        required
                         // value={username}
                         // onChange={(e) => setUserName(e.target.value)}
                       />
@@ -148,6 +195,7 @@ function Payment() {
                           min={1}
                           max={16}
                           onChange={(e) => setCardNumber(e.target.value)}
+                          required
                         />
                         <div className="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
                           <svg
@@ -170,6 +218,7 @@ function Payment() {
                         placeholder="MM/YY"
                         value={datecard}
                         onChange={(e) => setDateCard(e.target.value)}
+                        required
                       />
                       <input
                         type="text"
@@ -189,9 +238,8 @@ function Payment() {
                           className="w-full rounded-md border border-gray-200 px-2 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
                           placeholder="Your starting goal"
                           value={cash}
-                          min={1}
-                          max={14}
                           onChange={(e) => setCash(e.target.value)}
+                          required
                         />
                         <div className="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
                           <span class="bg-gray-200 py-1 px-2 rounded-lg text-sm">
