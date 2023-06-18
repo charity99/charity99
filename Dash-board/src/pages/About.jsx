@@ -1,9 +1,11 @@
 import React from "react";
+import Sidebar from "../components/Sidebar/Sidebar";
 
 const About = () => {
   return (
     <>
       <div className="settings" dir="rtl">
+        <Sidebar />
         <div className="settings__wrapper">
           <h2 className="settings__title">من نحن</h2>
           <div className="details__form">

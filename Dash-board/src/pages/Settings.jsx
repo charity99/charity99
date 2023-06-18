@@ -1,9 +1,11 @@
 import React from "react";
 import "../styles/settings.css";
+import Sidebar from "../components/Sidebar/Sidebar";
 
 const Settings = () => {
   return (
     <div className="settings" dir="rtl">
+      <Sidebar />
       <div className="settings__wrapper">
         <h2 className="settings__title">الأعدادات</h2>
 

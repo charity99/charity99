@@ -1,12 +1,13 @@
 import React from "react";
 import "../styles/dashboard.css";
 import SingleCard from "../components/reuseable/SingleCard";
+import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 import MileChart from "../charts/MileChart";
 import CarStatsChart from "../charts/CarStatsChart";
-import RecommendCarCard from "../components/UI/RecommendCarCard";
-
-import recommendCarsData from "../assets/dummy-data/recommendCars";
+import Sidebar from "../components/Sidebar/Sidebar";
 
 const carObj = {
   title: "عدد المتبرعين",
@@ -33,8 +34,23 @@ const clientObj = {
 // };
 
 const Dashboard = () => {
+  const [donation, setDonation] = useState([]);
+
+  useEffect(() => {
+    const fetchAllResort = async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/getForms");
+        setDonation(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchAllResort();
+  }, []);
+
   return (
     <div className="dashboard" dir="rtl">
+      <Sidebar />
       <div className="dashboard__wrapper">
         <div className="dashboard__cards">
           <SingleCard item={carObj} />
@@ -53,6 +69,41 @@ const Dashboard = () => {
             <h3 className="stats__title">المبلغ الحالي</h3>
             <CarStatsChart />
           </div>
+        </div>
+      </div>
+
+      {/* ************ user details **************** */}
+      <div className="user_details">
+        <div className="order_user_list" style={{ color: "white" }}>
+          <div className="order_user_header">
+            <h2>معلومات المستخدمين</h2>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <td>الأسم</td>
+                <td>نوع المرض</td>
+                <td>نوع المساعدة </td>
+              </tr>
+            </thead>
+            {/* *****************user info************** */}
+            <tbody>
+              {donation.map((DonationForm) => (
+                <tr>
+                  <td>{DonationForm.fullName}</td>
+                  <td>{DonationForm.TitleOfConsept}</td>
+                  <td>{DonationForm.typeOfneeds}</td>
+                  <td>
+                    <Link to="/about-admin">
+                      <span className="more_details_btn">
+                        المزيد من التفاصيل
+                      </span>
+                    </Link>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
