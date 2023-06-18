@@ -60,7 +60,8 @@ const Login = () => {
       .then((res) => {
         event.target.reset();
         localStorage.setItem("token", res.data.token);
-        navigate(path);
+        // setPath();
+        navigate("/dashboard");
         console.log(res);
       })
       .catch((err) => {

@@ -35,7 +35,7 @@ function App() {
             <Route path="about" element={<AboutUs />} />
             <Route path="contact" element={<ContactUs />} />
             <Route path="campings" element={<Campings />} />
-            <Route path="BenDetails" element={<BenDetails />} />
+            <Route path="/BenDetails/:beneficerId" element={<BenDetails />} />
           </Routes>
           <Footer />
         </BrowserRouter>
