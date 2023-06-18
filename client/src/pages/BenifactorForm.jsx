@@ -2,7 +2,6 @@ import axios from "axios";
 import React from "react";
 import { useState } from "react";
 function BenifactorForm() {
-  const [style, setshow] = useState("hide");
   const [formData, setFormData] = useState({
     beneficerId: "",
     fullName: "",
@@ -17,10 +16,10 @@ function BenifactorForm() {
   });
   const [images, setImages] = useState([]);
   const [reports, setReports] = useState([]);
-
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
   const handleImagesChange = (event) => {
     setImages([...event.target.files]);
   };
@@ -28,16 +27,16 @@ function BenifactorForm() {
     setReports([...event.target.files]);
   };
 
-  const handleShowpay = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-    setshow("showmoney");
-    console.log("showed");
-  };
-  const handleHidepay = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-    setshow("hide");
-    console.log("hide");
-  };
+  // const handleShowpay = (e) => {
+  //   setFormData({ ...formData, [e.target.name]: e.target.value });
+  //   setshow("showmoney");
+  //   console.log("showed");
+  // };
+  // const handleHidepay = (e) => {
+  //   setFormData({ ...formData, [e.target.name]: e.target.value });
+  //   setshow("hide");
+  //   console.log("hide");
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -83,7 +82,7 @@ function BenifactorForm() {
     }
   };
 
-  console.log(formData);
+  console.log(">>>>", formData);
 
   return (
     <div className=" mt-40">
@@ -185,7 +184,7 @@ function BenifactorForm() {
               <label
                 for="number"
                 class="inline-block w-20 mr-6 text-right 
-                                 font-bold text-gray-600"
+                font-bold text-gray-600"
               >
                 المدينة
               </label>
@@ -363,10 +362,13 @@ function BenifactorForm() {
                 <input
                   id="bordered-radio-1"
                   type="radio"
-                  value=""
-                  name="bordered-radio"
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                  onChange={handleShowpay}
+                  value="money"
+                  checked={formData === "money"}
+                  name="typeOfneeds"
+                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+                  onChange={(e) => {
+                    handleChange(e);
+                  }}
                 />
                 <label
                   for="bordered-radio-1"
@@ -376,27 +378,17 @@ function BenifactorForm() {
                 </label>
               </div>
 
-              <div className={style}>
-                <label for="number">
-                  {" "}
-                  المبلغ اليذي تحتاجه بالدينار الادرني{" "}
-                </label>
-                <input
-                  type="number"
-                  id="number"
-                  name="number"
-                  placeholder="المبلغ"
-                />
-              </div>
-
               <div class="flex items-center pl-4 border border-gray-200 rounded mb-4 dark:border-gray-700">
                 <input
                   id="bordered-radio-2"
                   type="radio"
-                  value="مستلزمات صحية"
-                  name="bordered-radio"
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                  onChange={handleHidepay}
+                  value="tools"
+                  checked={formData === "tools"}
+                  name="typeOfneeds"
+                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+                  onChange={(e) => {
+                    handleChange(e);
+                  }}
                 />
                 <label
                   for="bordered-radio-2"
@@ -410,10 +402,13 @@ function BenifactorForm() {
                 <input
                   id="bordered-radio-3"
                   type="radio"
-                  value="مواد تموينية"
-                  name="bordered-radio"
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                  onChange={handleHidepay}
+                  value="supplies"
+                  checked={formData === "supplies"}
+                  name="typeOfneeds"
+                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+                  onChange={(e) => {
+                    handleChange(e);
+                  }}
                 />
                 <label
                   for="bordered-radio-2"

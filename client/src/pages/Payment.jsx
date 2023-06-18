@@ -5,23 +5,10 @@ import Swal from "sweetalert2";
 import axios from "axios";
 
 function Payment() {
-  const [person, setPerson] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/payments")
-      .then((response) => {
-        setPerson(response.data);
-        console.log(response.data);
-      })
-      .catch((error) => console.log(error.message));
-  }, []);
-
-  const [username, setUserName] = useState("");
   const [cardnumber, setCardNumber] = useState("");
-  const [cash, setCash] = useState("");
   const [datecard, setDateCard] = useState("");
   const [cvc, setCvc] = useState("");
+  const [cash, setCash] = useState("");
 
   const handlePayment = () => {
     const cardNumber = document.getElementById("card-no").value;
@@ -31,7 +18,7 @@ function Payment() {
     const currentYear = today.getFullYear();
     const [expirationMonth, expirationYear] = datecard.split("/");
 
-    if (!username || !cardnumber || !datecard || !cvc) {
+    if (!cardnumber || !datecard || !cvc) {
       showAlert("من فضلك أدخل كل معلومات بطاقتك");
       return;
     }
@@ -59,17 +46,8 @@ function Payment() {
   };
 
   const submitPayment = () => {
-    const paymentData = {
-      username,
-      cardnumber,
-      datecard,
-      cvc,
-      userid: person[0].userid,
-    };
-    console.log(person[0].userid);
-
     axios
-      .post("http://localhost:5000/payment", paymentData)
+      .post("http://localhost:5000/payment")
       .then(() => {
         showSuccessAlert("لقد تمت عملية الدفع بنجاح");
       })
@@ -120,37 +98,6 @@ function Payment() {
                   </p>
                   <div className="justify-center">
                     <label
-                      htmlFor="email"
-                      className="mt-4 mb-2 block text-sm font-medium"
-                    >
-                      البريد الإلكتروني
-                    </label>
-                    <div className="relative">
-                      <input
-                        type="text"
-                        id="email"
-                        name="email"
-                        className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
-                        placeholder="your.email@gmail.com"
-                      />
-                      <div className="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-4 w-4 text-gray-400"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          strokeWidth={2}
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                    <label
                       htmlFor="card-holder"
                       className="mt-4 mb-2 block text-sm font-medium"
                     >
@@ -163,8 +110,8 @@ function Payment() {
                         name="card-holder"
                         className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm uppercase shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
                         placeholder="اسمك الكامل هنا"
-                        value={username}
-                        onChange={(e) => setUserName(e.target.value)}
+                        // value={username}
+                        // onChange={(e) => setUserName(e.target.value)}
                       />
                       <div className="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
                         <svg
@@ -247,7 +194,9 @@ function Payment() {
                           onChange={(e) => setCash(e.target.value)}
                         />
                         <div className="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
-                        <span class="bg-gray-200 py-1 px-2 rounded-lg text-sm">دينار</span>
+                          <span class="bg-gray-200 py-1 px-2 rounded-lg text-sm">
+                            دينار
+                          </span>
                         </div>
                       </div>
                     </div>

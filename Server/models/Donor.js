@@ -33,6 +33,14 @@ const Donor = new Schema(
       type: Boolean,
       default: false,
     },
+    eachPayment: {
+      type: Number,
+      default: 0,
+    },
+    totalPayments: {
+      type: Number,
+      default: 0,
+    },
   },
   { timestamps: true }
 );

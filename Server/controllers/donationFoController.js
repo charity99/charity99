@@ -135,41 +135,81 @@ const getForms = async (req, res) => {
     res.status(500).json({ err: "An error occurred while getting data" });
   }
 };
-
-const handleUpdateForm = async (req, res) => {
-  const adminRole = req.user.role;
-  if (beneficerRole === "admin") {
-    try {
-      const { totalPrice, isDeleted } = req.body;
-      console.log(adminRole);
-      const updateBeneficer = await beneficer
-        .findOneAndUpdate(
-          { _id: beneficerId },
-          {
-            $set: {
-              fullName: fullName,
-              email: email,
-              phone: phone,
-              password: hashedPassword,
-              image: image,
-            },
-          },
-          { new: true }
-        )
-        .exec();
-
-      if (updateBeneficer.deletedCount === 0) {
-        return res.status(204).json({ message: `User ID ${userId} not found` });
-      }
-
-      return res.send("beneficer is Updated");
-    } catch (error) {
-      // Handle any errors that occur during the database query
-      return res.status(500).json({ message: "Error retrieving user data" });
-    }
-  } else {
-    return res.status(400).json({ message: "User must be admin" });
+const getFormsbyID = async (req, res) => {
+  const formId = req.params.id;
+  try {
+    const allData = await form.findOne({ _id: formId });
+    res.status(200).json(allData);
+    console.log(allData);
+  } catch (err) {
+    console.log("Error retrieving data:", err);
+    res.status(500).json({ err: "An error occurred while getting data" });
   }
 };
 
-module.exports = { handleAddForm, getForms };
+// const handleUpdateForm = async (req, res) => {
+//   const adminRole = req.user.role;
+//   if (adminRole === "admin") {
+//     try {
+//       const { totalPrice, isDeleted } = req.body;
+//       console.log(adminRole);
+//       const updateBeneficer = await beneficer
+//         .findOneAndUpdate(
+//           { _id: beneficerId },
+//           {
+//             $set: {
+//               fullName: fullName,
+//               email: email,
+//               phone: phone,
+//               password: hashedPassword,
+//               image: image,
+//             },
+//           },
+//           { new: true }
+//         )
+//         .exec();
+
+//       if (updateBeneficer.deletedCount === 0) {
+//         return res.status(204).json({ message: `User ID ${userId} not found` });
+//       }
+
+//       return res.send("beneficer is Updated");
+//     } catch (error) {
+//       // Handle any errors that occur during the database query
+//       return res.status(500).json({ message: "Error retrieving user data" });
+//     }
+//   } else {
+//     return res.status(400).json({ message: "User must be admin" });
+//   }
+// };
+
+const handleUpdateFormBydonor = async (req, res) => {
+  try {
+    const { donorPaid, donorId, formId } = req.body;
+    const getPrevPaids = await form.findOne({ _id: formId });
+    const updateFromDonor = await form
+      .findOneAndUpdate(
+        { _id: formId },
+        {
+          $set: {
+            donorPaid: donorPaid,
+            donorId: donorId,
+            sumOfPaid: getPrevPaids.sumOfPaid + donorPaid,
+          },
+        },
+        { new: true }
+      )
+      .exec();
+    // console.log(updateFromDonor);
+    return res.send("form is Updated");
+  } catch (error) {
+    // Handle any errors that occur during the database query
+    return res.status(500).json({ message: "Error retrieving user data" });
+  }
+};
+module.exports = {
+  handleAddForm,
+  getForms,
+  handleUpdateFormBydonor,
+  getFormsbyID,
+};

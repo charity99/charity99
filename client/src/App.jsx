@@ -17,30 +17,29 @@ import Payment from "./pages/Payment";
 import AboutUs from "./pages/aboutUs";
 import ContactUs from "./pages/contactUs";
 import Campings from "./pages/Campings";
+import BenDetails from "./pages/BenDetails";
 function App() {
   const [userType, setUserType] = useState("guest");
 
   return (
     <>
       {userType === "guest" && (
-     <BrowserRouter>
+        <BrowserRouter>
           <Nav />
           <Routes>
-
-          <Route path="/" element={<Home/>} />
-          <Route path="login" element={<Login/>} />
-          <Route path="signup" element={<Signup/>} />
-          <Route path="form" element={<BenForm/>} />
-          <Route path="pay" element={<Payment/>} />
-          <Route path="about" element={<AboutUs/>} />
-          <Route path="contact" element={<ContactUs/>} />
-          <Route path="campings" element={<Campings/>} />
-         
-          
-            </Routes>
-            <Footer/>
-      </BrowserRouter>
-   )}
+            <Route path="/" element={<Home />} />
+            <Route path="login" element={<Login />} />
+            <Route path="signup" element={<Signup />} />
+            <Route path="form" element={<BenForm />} />
+            <Route path="pay" element={<Payment />} />
+            <Route path="about" element={<AboutUs />} />
+            <Route path="contact" element={<ContactUs />} />
+            <Route path="campings" element={<Campings />} />
+            <Route path="BenDetails" element={<BenDetails />} />
+          </Routes>
+          <Footer />
+        </BrowserRouter>
+      )}
 
       {/* {userType === "benf" && (
         <BrowserRouter>

@@ -52,8 +52,26 @@ const DonationForm = new Schema(
       type: String,
       // required: true,
     },
-    totalPrice: {
-      type: String,
+    totalPriceByAdmin: {
+      type: Number,
+      default: 5000,
+      // default: false,
+      // required: true,
+    },
+    donorPaid: {
+      type: Number,
+      default: 0,
+      // default: false,
+      // required: true,
+    },
+    sumOfPaid: {
+      type: Number,
+      default: 0,
+      // default: false,
+      // required: true,
+    },
+    donorId: {
+      type: [String],
       // default: false,
       // required: true,
     },
@@ -63,7 +81,7 @@ const DonationForm = new Schema(
     },
     isApproved: {
       type: Boolean,
-      default: false,
+      default: true,
     },
   },
   { timestamps: true }

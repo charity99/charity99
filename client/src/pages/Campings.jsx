@@ -148,6 +148,7 @@ const ServiceAll = () => {
                       />
                     ))}
                 </Link>
+                {sessionStorage.setItem("cardId", benefice._id)}
                 <div className="p-5">
                   <a href="#">
                     <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 text-center dark:text-white">
@@ -166,9 +167,11 @@ const ServiceAll = () => {
                     </div>
                   </div>
                   <div className="flex justify-center">
-                    <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent mt-4 rounded transition-colors duration-300">
-                      تبرع
-                    </button>
+                    <Link to="/BenDetails">
+                      <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent mt-4 rounded transition-colors duration-300">
+                        التفاصيل
+                      </button>
+                    </Link>
                   </div>
                 </div>
               </div>

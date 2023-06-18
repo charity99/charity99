@@ -133,6 +133,35 @@ const deleteDonor = async (req, res) => {
 
 ///////////////////
 
+const handleUpdateDonorOnPaid = async (req, res) => {
+  try {
+    const { donorPaid, donorId } = req.body;
+    const getPrevPaids = await donor.findOne({ _id: donorId });
+    console.log(donorId);
+    const updateDonor = await donor
+      .findOneAndUpdate(
+        { _id: donorId },
+        {
+          $set: {
+            eachPayment: donorPaid,
+            totalPayments: getPrevPaids.totalPayments + donorPaid,
+          },
+        },
+        { new: true }
+      )
+      .exec();
+
+    if (updateDonor.deletedCount === 0) {
+      return res.status(204).json({ message: `User ID ${userId} not found` });
+    }
+
+    return res.send("donor is Updated");
+  } catch (error) {
+    // Handle any errors that occur during the database query
+    return res.status(500).json({ message: "Error retrieving user data" });
+  }
+};
+
 const handleUpdateDonor = async (req, res) => {
   const donorId = req.user._id;
   const donorRole = req.user.role;
@@ -179,4 +208,5 @@ module.exports = {
   getDonor,
   deleteDonor,
   handleUpdateDonor,
+  handleUpdateDonorOnPaid,
 };

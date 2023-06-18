@@ -90,5 +90,8 @@ router.post(
 );
 
 router.get("/getForms", donationForm.getForms);
+router.get("/getForms/:id", donationForm.getFormsbyID);
+router.post("/formByDonor", donationForm.handleUpdateFormBydonor);
+router.post("/donorPaid", donorController.handleUpdateDonorOnPaid);
 
 module.exports = router;
