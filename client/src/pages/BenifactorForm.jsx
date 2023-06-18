@@ -78,7 +78,6 @@ function BenifactorForm() {
       );
 
       console.log("Data sent successfully");
-      localStorage.setItem("token", response.data.token);
     } catch (error) {
       console.log("Error:", error.message);
     }
@@ -169,7 +168,7 @@ function BenifactorForm() {
                 onChange={handleChange}
               />
             </div>
-         
+
             <div class="flex items-center mb-5">
               <input
                 type="text"

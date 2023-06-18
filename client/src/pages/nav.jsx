@@ -1,6 +1,8 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import logo from "../images/youBelong.png";
+import logo from "../images/U-Belong.png";
 import jwtDecode from "jwt-decode";
 
 const Navbar = (props) => {
@@ -35,11 +37,9 @@ const Navbar = (props) => {
     <div>
       {" "}
       <nav className="bg-[#8dbbd0]  fixed w-full z-20 top-0 left-0 border-gray-200">
-        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-4">
           <Link to="/" className="flex items-center">
-            <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-              تنتمي
-            </span>
+            <img src={logo} className="w-20" />
           </Link>
           <div className="flex md:order-2">
             {!token ? (
@@ -95,23 +95,26 @@ const Navbar = (props) => {
               isMenuOpen ? "block" : "hidden"
             }`}
           >
-            <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg  md:flex-row md:space-x-8 md:mt-0 md:border-0  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+            <ul className="flex flex-col items-center justify-center p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg md:flex-row md:justify-between md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
               <li className="px-4">
                 <Link to="/">الصفحة الرئيسة</Link>
               </li>
 
-              <li>
+              <li className="px-4">
                 <Link to="/Campings">ساهم في انقاذ حياه</Link>
               </li>
-              <li>
-                <Link to="/about">قصتنا </Link>
+
+              <li className="px-4">
+                <Link to="/about">قصتنا</Link>
               </li>
-              <li>
-                <Link to="/contact">تواصل معنا </Link>
+
+              <li className="px-4">
+                <Link to="/contact">تواصل معنا</Link>
               </li>
-              {token && role == "beneficer" && (
-                <li>
-                  <Link to="/form">دعنا نساعدك </Link>
+
+              {token && role === "beneficer" && (
+                <li className="px-4">
+                  <Link to="/form">دعنا نساعدك</Link>
                 </li>
               )}
             </ul>
