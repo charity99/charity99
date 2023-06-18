@@ -31,11 +31,11 @@ function App() {
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<Signup />} />
             <Route path="form" element={<BenForm />} />
-            <Route path="pay" element={<Payment />} />
+            <Route path="/pay/:formId" element={<Payment />} />
             <Route path="about" element={<AboutUs />} />
             <Route path="contact" element={<ContactUs />} />
             <Route path="campings" element={<Campings />} />
-            <Route path="/BenDetails/:beneficerId" element={<BenDetails />} />
+            <Route path="/BenDetails/:formId" element={<BenDetails />} />
           </Routes>
           <Footer />
         </BrowserRouter>
