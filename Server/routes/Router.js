@@ -4,6 +4,8 @@ const donorController = require("../controllers/donorController");
 const beneficerController = require("../controllers/beneficerController");
 const adminController = require("../controllers/adminController");
 const donationForm = require("../controllers/donationFoController");
+const AboutUsController = require("../controllers/AboutUsController");
+const contactUsController = require("../controllers/contactUsController");
 const verifyJWT = require("../middleware/verifyJWT");
 const multer = require("multer");
 const path = require("path");
@@ -93,5 +95,16 @@ router.get("/getForms", donationForm.getForms);
 router.get("/getForms/:id", donationForm.getFormsbyID);
 router.post("/formByDonor", donationForm.handleUpdateFormBydonor);
 router.post("/donorPaid", donorController.handleUpdateDonorOnPaid);
+
+////////////////////
+
+// get about us data
+router.get("/aboutus", AboutUsController.getAboutUsUpdate);
+
+// put the about us data "admin"
+router.put("/aboutus", AboutUsController.aboutUsUpdate);
+
+// post the data from the contact us form
+router.post("/contacts", contactUsController.postContactUsData);
 
 module.exports = router;
