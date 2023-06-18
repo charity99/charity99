@@ -18,6 +18,9 @@ import AboutUs from "./pages/aboutUs";
 import ContactUs from "./pages/contactUs";
 import Campings from "./pages/Campings";
 import BenDetails from "./pages/BenDetails";
+import ProfilePage from "./pages/ProfilePage";
+import EditProfile from "./pages/EditProfile";
+import EditProfileben from "./pages/ProfileEditBen";
 function App() {
   const [userType, setUserType] = useState("guest");
 
@@ -36,6 +39,9 @@ function App() {
             <Route path="contact" element={<ContactUs />} />
             <Route path="campings" element={<Campings />} />
             <Route path="/BenDetails/:formId" element={<BenDetails />} />
+            <Route path="/ProfilePage" element={<ProfilePage />} />
+            <Route path="/EditProfile" element={<EditProfile />} />
+            <Route path="/EditProfileben" element={<EditProfileben />} />
           </Routes>
           <Footer />
         </BrowserRouter>

@@ -15,19 +15,7 @@ const SignInDoner = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(false);
   const [path, setPath] = useState("/");
-
-  // useEffect(() => {
-  //   const token = localStorage.getItem("token") || false;
-  //   if (token) {
-  //     checkToken(token).then((resultUsers) => {
-  //       if (resultUsers) {
-  //         updateIsLog(true);
-  //         navigate(path);
-  //       }
-  //     });
-  //   }
-  // }, []);
-
+  
   const [massageWarning, setMassageWarning] = useState({
     email: "",
     password: "",
