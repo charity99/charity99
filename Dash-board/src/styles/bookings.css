@@ -5,117 +5,84 @@
   padding-bottom: 50px;
 }
 
-.booking__title {
-  font-size: 1.5rem;
-  color: #fff;
-  margin-bottom: 2rem;
-}
+/******************* user details ***************/
 
-.filter__widget-wrapper {
-  display: flex;
-  align-items: center;
-  column-gap: 1.5rem;
-}
-
-.filter__widget-01 select,
-.filter__widget-02 select {
-  border: none;
-  padding: 7px 20px;
-  border-radius: 50px;
-  background: var(--primary-color);
-  color: #fff;
-  cursor: pointer;
-  margin-bottom: 2rem;
-}
-
-.car__item {
+.alluser_details {
+  position: relative;
+  width: 120%;
   padding: 20px;
-  border-radius: 5px;
-  background: var(--primary-color);
-  cursor: pointer;
-}
-
-.car__item-tile {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.car__item-tile h3 {
-  font-size: 1.3rem;
-  color: var(--heading-color);
-  font-weight: 400;
-}
-
-.car__item-tile span i {
-  font-size: 1.3rem;
-  color: var(--small-text-color);
-  cursor: pointer;
-}
-
-.car__item-top p {
-  color: var(--small-text-color);
-  font-size: 0.9rem;
-  font-weight: 400;
-}
-
-.car__item-bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.car__bottom-left {
-  display: flex;
-  align-items: center;
-  column-gap: 1.5rem;
-}
-
-.car__bottom-left p {
-  display: flex;
-  align-items: center;
-  column-gap: 8px;
-  color: rgba(255, 255, 255, 0.829);
-  font-weight: 300 !important;
-}
-
-.car__bottom-left p i {
-  color: var(--secondary-color);
-}
-
-.car__rent {
-  color: rgba(255, 255, 255, 0.829);
-  font-size: 1.1rem;
-}
-
-.booking__car-list {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  column-gap: 2rem;
-  row-gap: 2rem;
+  grid-template-columns: 6fr 1fr;
+  grid-gap: 30px;
+  margin-top: 1px;
 }
 
-.car__item-tile h3 {
-  font-size: 1rem;
-  font-weight: 400;
+.alluser_details .order_user_list {
+  position: relative;
+  display: grid;
+  min-height: 10px;
+  background-color: var(--primary-color);
+  padding: 20px;
+  box-shadow: 0 7px 25px rgba(255, 255, 255, 0.08);
+  border-radius: 25px;
 }
 
-.car__item-top {
-  margin-bottom: 15px;
+.alluser_details .order_user_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
-.car__img {
-  margin-bottom: 20px;
-  height: 200px;
-  width: 200px;
+.alluser_details table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
 }
 
-.car__item:nth-child(2) .car__img img,
-.car__item:nth-child(6) .car__img img,
-.car__item:nth-child(8) .car__img img {
-  width: 75%;
+.alluser_details table thead td {
+  font-weight: 500;
 }
 
-.car__item:nth-child(4) .car__img img {
-  width: 85%;
+.alluser_details table td {
+  padding: 20px;
+}
+
+.alluser_details table tr {
+  color: white;
+  border-bottom: 1px solid white;
+
+}
+
+.alluser_details table tbody tr:hover {
+  background-color: #f5f5f5;
+  color: black;
+}
+
+.alluser_details table tr td:last-child {
+  text-align: end;
+}
+
+.alluser_details table tr td:nth-child(2) {
+  text-align: end;
+}
+
+.alluser_details table tr td:nth-child(3) {
+  text-align: end;
+}
+
+.alluser_details table tr td:nth-child(4) {
+  text-align: end;
+}
+
+.alluser_details .more_details_btn {
+  background-color: greenyellow;
+  padding: 2px 4px;
+  color: white;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.alluser_details .delete__icon {
+  color: red;
 }

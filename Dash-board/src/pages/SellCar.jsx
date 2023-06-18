@@ -1,9 +1,11 @@
 import React from "react";
 import "../styles/sell-car.css";
+import Sidebar from "../components/Sidebar/Sidebar";
 
 const SellCar = () => {
   return (
     <div className="sell__car" dir="rtl">
+      <Sidebar />
       <div className="sell__car-wrapper">
         <div className="offer__wrapper">
           <div className="offer__top">
