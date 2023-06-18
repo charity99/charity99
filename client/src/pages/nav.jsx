@@ -11,28 +11,21 @@ const Navbar = (props) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const token = localStorage.getItem("token");
   let role = "";
-
+  let fullName = "";
   if (token) {
     try {
       const decodedToken = jwtDecode(token);
       role = decodedToken.role;
+      fullName = decodedToken.fullName;
       // Use the extracted username and role variables as needed
     } catch (error) {
       console.error("Error decoding token:", error);
       // Handle the error (e.g., show an error message, redirect the user, etc.)
     }
   }
-  const toggleDropdown = () => {
-    setShowDropdown(!showDropdown);
-  };
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-
-  function handleLogout() {
-    localStorage.clear();
-    props.forceUpdate();
-  }
   return (
     <div>
       {" "}
@@ -42,6 +35,15 @@ const Navbar = (props) => {
             <img src={logo} className="w-20" />
           </Link>
           <div className="flex md:order-2">
+            {token && role == "donor" ? (
+              <Link to="/ProfilePage">
+                <p className=" ml-5 mt-1">{fullName.split(" ")[0]}</p>
+              </Link>
+            ) : (
+              <Link to="/ProfileBen" className=" ml-5 mt-1">
+                {fullName.split(" ")[0]}
+              </Link>
+            )}
             {!token ? (
               <Link to={"/login"}>
                 <button
