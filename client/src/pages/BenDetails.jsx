@@ -1,28 +1,31 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import "../style/details.css";
 
 function BenDetails() {
   const [data, setData] = useState([]);
-
+  let params = useParams();
+  let { beneficerId } = useParams();
+  console.log(">>>>", params);
   useEffect(() => {
     getDetailsData();
   }, []);
 
   const getDetailsData = async () => {
-    const id = sessionStorage.getItem("cardId");
-    console.log(id);
+    // const id = sessionStorage.getItem("cardId");
+    // console.log(id);
     try {
-      const response = await axios.get(`http://localhost:5000/getForms/${id}`);
+      const response = await axios.get(
+        `http://localhost:5000/getForms/${beneficerId}`
+      );
       setData(response.data);
       console.log(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
-  // console.log(data.Images);
 
   if (data.length === 0) {
     return <div>Loading...</div>;
