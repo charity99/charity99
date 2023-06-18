@@ -8,6 +8,8 @@ const verifyJWT = (req, res, next) => {
   req.user = {
     _id: user._id,
     role: user.role,
+    fullName: user.fullName,
+    email: user.email,
   };
   next();
 };

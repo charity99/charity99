@@ -52,6 +52,11 @@ const DonationForm = new Schema(
       type: String,
       // required: true,
     },
+    totalPrice: {
+      type: String,
+      // default: false,
+      // required: true,
+    },
     isDeleted: {
       type: Boolean,
       default: false,

@@ -136,4 +136,40 @@ const getForms = async (req, res) => {
   }
 };
 
+const handleUpdateForm = async (req, res) => {
+  const adminRole = req.user.role;
+  if (beneficerRole === "admin") {
+    try {
+      const { totalPrice, isDeleted } = req.body;
+      console.log(adminRole);
+      const updateBeneficer = await beneficer
+        .findOneAndUpdate(
+          { _id: beneficerId },
+          {
+            $set: {
+              fullName: fullName,
+              email: email,
+              phone: phone,
+              password: hashedPassword,
+              image: image,
+            },
+          },
+          { new: true }
+        )
+        .exec();
+
+      if (updateBeneficer.deletedCount === 0) {
+        return res.status(204).json({ message: `User ID ${userId} not found` });
+      }
+
+      return res.send("beneficer is Updated");
+    } catch (error) {
+      // Handle any errors that occur during the database query
+      return res.status(500).json({ message: "Error retrieving user data" });
+    }
+  } else {
+    return res.status(400).json({ message: "User must be admin" });
+  }
+};
+
 module.exports = { handleAddForm, getForms };

@@ -7,7 +7,7 @@ function tokenGenerator({ _id, role, fullName, email }) {
   const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET);
   return accessToken;
 }
-  
+
 ///////////////////
 
 const handleNewUser = async (req, res) => {

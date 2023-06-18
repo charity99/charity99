@@ -11,3 +11,17 @@ input,
 input::placeholder {
   font: 0.9rem/3 sans-serif;
 }
+body {
+  font-family: "Cairo", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a {
+  font-family: "Cairo", sans-serif;
+}

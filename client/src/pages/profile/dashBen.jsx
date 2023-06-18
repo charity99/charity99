@@ -3,19 +3,15 @@ import { Nav } from "./Nav";
 import { Aside } from "./Aside";
 import { Main } from "./Main";
 
- const DashBoard = (props) => {
+const DashBoard = (props) => {
   return (
     <>
       <div className="antialiased">
         <Nav />
 
-
         <Aside />
-
-
-
       </div>
     </>
   );
 };
-export default DashBoard
+export default DashBoard;
