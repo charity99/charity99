@@ -93,6 +93,11 @@ router.post(
 
 router.get("/getForms", donationForm.getForms);
 router.get("/getForms/:id", donationForm.getFormsbyID);
+router.get(
+  "/getFormByBeniId",
+  verifyJWT.verifyJWT,
+  donationForm.getFormsbyBeneficerID
+);
 router.post("/formByDonor", donationForm.handleUpdateFormBydonor);
 router.post("/donorPaid", donorController.handleUpdateDonorOnPaid);
 
