@@ -83,24 +83,24 @@ function ContactUs() {
         </div>
       </div>
 
-      <div
-        className=""
-
-      >
-        <section className="relative z-10 overflow-hidden bg-white py-20 lg:py-[120px]"
-        >
+      <div className="">
+        <section className="relative z-10 overflow-hidden bg-white py-20 lg:py-[120px]">
           <div className="container mx-auto">
             <div className="mx-4 flex flex-wrap lg:justify-between">
               <div className="w-full lg:w-1/2 xl:w-6/12">
-                <div className="mb-12 max-w-[570px] lg:mb-0" style={{ marginRight: "60px", marginLeft: "65px" }}>
-                  <h2 className="text-dark mb-6 text-[32px] font-bold uppercase sm:text-[40px] lg:text-[36px] xl:text-[40px]" >
+                <div
+                  className="mb-12 max-w-[570px] lg:mb-0"
+                  style={{ marginRight: "60px", marginLeft: "65px" }}
+                >
+                  <h2 className="text-dark mb-6 text-[32px] font-bold uppercase sm:text-[40px] lg:text-[36px] xl:text-[40px]">
                     تواصل معنا
                   </h2>
-                  <h4 className="text-body-color mb-9 text-base leading-relaxed" >
-                    إذا كان لديك أي أسئلة أو تشعر بالحيرة بشأن شيء ما ، فلا تتردد وتواصل معنا الآن... نحن هنا من أجلك
+                  <h4 className="text-body-color mb-9 text-base leading-relaxed">
+                    إذا كان لديك أي أسئلة أو تشعر بالحيرة بشأن شيء ما ، فلا
+                    تتردد وتواصل معنا الآن... نحن هنا من أجلك
                   </h4>
-                  <div className="mb-8 flex w-full max-w-[370px]" >
-                    <div className="bg-primary text-primary mr-6 flex h-[60px] w-full max-w-[60px] items-center justify-center overflow-hidden rounded bg-opacity-5 sm:h-[70px] sm:max-w-[70px]" >
+                  <div className="mb-8 flex w-full max-w-[370px]">
+                    <div className="bg-primary text-primary mr-6 flex h-[60px] w-full max-w-[60px] items-center justify-center overflow-hidden rounded bg-opacity-5 sm:h-[70px] sm:max-w-[70px]">
                       <svg
                         width={24}
                         height={24}
@@ -163,7 +163,10 @@ function ContactUs() {
                   </div>
                 </div>
               </div>
-              <div className="w-full px-4 lg:w-1/2 xl:w-5/12" style={{marginLeft:"55px",marginRight:"40px"}}>
+              <div
+                className="w-full px-4 lg:w-1/2 xl:w-5/12"
+                style={{ marginLeft: "55px", marginRight: "40px" }}
+              >
                 <div className="relative rounded-lg bg-white p-8 shadow-lg sm:p-12">
                   <form method="post" onSubmit={handleSubmit}>
                     <div className="mb-6">
@@ -215,7 +218,6 @@ function ContactUs() {
                       </button>
                     </div>
                   </form>
-
 
                   <div>
                     <span className="absolute -top-10 -right-9 z-[-1]">
