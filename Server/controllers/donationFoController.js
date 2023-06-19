@@ -66,11 +66,11 @@ const form = require("../models/DonationForm");
 const acceptOrg = async (req, res) => {
   try {
     const userId = req.params.id;
-
+    const { totalPriceByAdmin } = req.body;
+    console.log(totalPriceByAdmin);
     const user = await form.findById(userId);
-    console.log(user);
     user.isApproved = true;
-
+    user.totalPriceByAdmin = totalPriceByAdmin;
     const updatedUser = await user.save();
 
     res.json(updatedUser);
@@ -83,7 +83,6 @@ const deleteForm = async (req, res) => {
     const userId = req.params.id;
 
     const user = await form.findById(userId);
-    console.log(user);
     user.isDeleted = true;
 
     const updatedUser = await user.save();
@@ -159,7 +158,6 @@ const getForms = async (req, res) => {
   try {
     const allData = await form.find();
     res.status(200).json(allData);
-    console.log(allData);
   } catch (err) {
     console.log("Error retrieving data:", err);
     res.status(500).json({ err: "An error occurred while getting data" });
@@ -171,7 +169,6 @@ const getFormsbyID = async (req, res) => {
   try {
     const allData = await form.findOne({ _id: formId });
     res.status(200).json(allData);
-    console.log(allData);
   } catch (err) {
     console.log("Error retrieving data:", err);
     res.status(500).json({ err: "An error occurred while getting data" });
@@ -183,7 +180,6 @@ const getFormsbyBeneficerID = async (req, res) => {
   try {
     const allData = await form.findOne({ beneficerId: userId });
     res.status(200).json(allData);
-    console.log(allData);
   } catch (err) {
     console.log("Error retrieving data:", err);
     res.status(500).json({ err: "An error occurred while getting data" });

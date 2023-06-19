@@ -19,7 +19,6 @@ const ServiceAll = () => {
     axios
       .get("http://localhost:5000/getForms")
       .then((response) => {
-        console.log(response.data);
         setFormData(response.data);
       })
       .catch((error) => {
@@ -132,7 +131,12 @@ const ServiceAll = () => {
                             className="bg-blue-600 text-xs font-medium text-blue-100 mb-4 text-center p-0.5 leading-none rounded-full"
                             style={{ width: "50px" }}
                           >
-                            {benefice.progress}%
+                            {parseInt(
+                              (benefice.sumOfPaid /
+                                benefice.totalPriceByAdmin) *
+                                100
+                            )}
+                            %
                           </div>
                         </div>
                         <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
