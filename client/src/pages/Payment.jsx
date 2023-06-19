@@ -16,14 +16,11 @@ function Payment() {
     try {
       const decodedToken = jwtDecode(token);
       tokendonorId = decodedToken._id;
-      // Use the extracted username and role variables as needed
     } catch (error) {
       console.error("Error decoding token:", error);
-      // Handle the error (e.g., show an error message, redirect the user, etc.)
     }
   } else {
     console.error("No token found in localStorage");
-    // Handle the case where there is no token (e.g., show an error message, redirect the user, etc.)
   }
   console.log(tokendonorId);
 
@@ -33,7 +30,7 @@ function Payment() {
   const [cash, setCash] = useState("");
 
   const handlePayment = () => {
-    submitPayment();
+    // submitPayment();
 
     const cardNumber = document.getElementById("card-no").value;
     const cardRegex = /^(4\d{15}|5\d{15})$/;
@@ -66,14 +63,14 @@ function Payment() {
       showAlert("غير صحيح CVC");
       return;
     }
-    // submitPayment();
+    submitPayment();
   };
 
   const submitPayment = () => {
     axios
       .post("http://localhost:5000/formByDonor", {
         formId: formId,
-        donorPaid: 50,
+        donorPaid: parseInt(cash),
         donorId: tokendonorId || "anonymous",
       })
       .then(() => {
@@ -86,7 +83,7 @@ function Payment() {
       axios
         .post("http://localhost:5000/donorPaid", {
           donorId: tokendonorId,
-          donorPaid: 50,
+          donorPaid: parseInt(cash),
         })
         .then(() => {
           console.log("Done");
@@ -115,12 +112,20 @@ function Payment() {
       confirmButtonText: "OK",
     });
   };
-  // console.log(cash);
+  console.log(cash);
 
-  const handleCash = () => {
+  const handleCash = (event) => {
     const cashRegex = /^\d+$/;
+    const enterdCash = event.target.value;
+    if (enterdCash === "") {
+      console.log("its empty");
+    } else if (!cashRegex.test(enterdCash)) {
+      console.log("Not Valid");
+    } else {
+      setCash(enterdCash);
+    }
   };
-  // console.log(cash);
+  console.log(cash);
   return (
     <div
       className="min-h-screen bg-gray-100 text-gray-900 flex justify-center"
@@ -157,8 +162,6 @@ function Payment() {
                         className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm uppercase shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
                         placeholder="اسمك الكامل هنا"
                         required
-                        // value={username}
-                        // onChange={(e) => setUserName(e.target.value)}
                       />
                       <div className="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
                         <svg
@@ -234,11 +237,10 @@ function Payment() {
                         <input
                           type="text"
                           id="card-no"
-                          name="card-no"
+                          name="cash"
                           className="w-full rounded-md border border-gray-200 px-2 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
                           placeholder="Your starting goal"
-                          value={cash}
-                          onChange={(e) => setCash(e.target.value)}
+                          onChange={handleCash}
                           required
                         />
                         <div className="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
@@ -256,7 +258,7 @@ function Payment() {
                     <p className="text-sm font-medium text-gray-900">
                       الإجمالي
                     </p>
-                    <p className="font-semibold text-gray-900">5.00 د.أ</p>
+                    <p className="font-semibold text-gray-900">{cash}</p>
                   </div>
                   <div className="mt-6 flex justify-between">
                     <Link to="/" className="text-sm text-gray-900">

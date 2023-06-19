@@ -6,6 +6,7 @@ import Signup from "./pages/Signup";
 import Pop from "./component/Pop";
 import BenForm from "./pages/BenifactorForm";
 import BemProfile from "./pages/profile/dashBen";
+import { useEffect } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { useState } from "react";
 import Profile from "./pages/profile/Profile";
@@ -18,13 +19,30 @@ import AboutUs from "./pages/aboutUs";
 import ContactUs from "./pages/contactUs";
 import Campings from "./pages/Campings";
 import BenDetails from "./pages/BenDetails";
+import ProfilePage from "./pages/ProfilePage";
+import EditProfile from "./pages/EditProfile";
+import EditProfileben from "./pages/ProfileEditBen";
+import ProfileBen from "./pages/ProfileBEN";
+import RequiredAuth from "./component/RequiredAuth";
+import NotFound from "./pages/NotFound404";
 function App() {
   const [userType, setUserType] = useState("guest");
+  const ScrollToTop = () => {
+    const { pathname } = useLocation();
+
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, [pathname]);
+
+    return null;
+  };
 
   return (
     <>
       {userType === "guest" && (
         <BrowserRouter>
+          <ScrollToTop />
+
           <Nav />
           <Routes>
             <Route path="/" element={<Home />} />
@@ -36,6 +54,13 @@ function App() {
             <Route path="contact" element={<ContactUs />} />
             <Route path="campings" element={<Campings />} />
             <Route path="/BenDetails/:formId" element={<BenDetails />} />
+            <Route element={<RequiredAuth />}>
+              <Route path="/ProfilePage" element={<ProfilePage />} />
+              <Route path="/ProfileBen" element={<ProfileBen />} />
+            </Route>
+            <Route path="/EditProfile" element={<EditProfile />} />
+            <Route path="/EditProfileben" element={<EditProfileben />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />
         </BrowserRouter>

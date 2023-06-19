@@ -135,6 +135,7 @@ const getForms = async (req, res) => {
     res.status(500).json({ err: "An error occurred while getting data" });
   }
 };
+
 const getFormsbyID = async (req, res) => {
   const formId = req.params.id;
   try {
@@ -146,7 +147,18 @@ const getFormsbyID = async (req, res) => {
     res.status(500).json({ err: "An error occurred while getting data" });
   }
 };
+const getFormsbyBeneficerID = async (req, res) => {
+  const userId = req.user._id;
 
+  try {
+    const allData = await form.findOne({ beneficerId: userId });
+    res.status(200).json(allData);
+    console.log(allData);
+  } catch (err) {
+    console.log("Error retrieving data:", err);
+    res.status(500).json({ err: "An error occurred while getting data" });
+  }
+};
 // const handleUpdateForm = async (req, res) => {
 //   const adminRole = req.user.role;
 //   if (adminRole === "admin") {
@@ -215,4 +227,5 @@ module.exports = {
   getForms,
   handleUpdateFormBydonor,
   getFormsbyID,
+  getFormsbyBeneficerID,
 };
