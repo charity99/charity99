@@ -5,8 +5,6 @@ import axios from "axios";
 const ProfilePage = () => {
   const [data, setData] = useState();
   const [formData, setFormData] = useState();
-  // Change the format of the Time.
-  // Change the format of the Date.
   useEffect(() => {
     getUserData();
     getFormData();

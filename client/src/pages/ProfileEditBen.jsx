@@ -4,8 +4,6 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
 const EditProfileben = () => {
-  const [user, setUser] = useState({});
-
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
