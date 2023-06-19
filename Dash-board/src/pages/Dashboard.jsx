@@ -87,20 +87,25 @@ const Dashboard = () => {
             </thead>
             {/* *****************user info************** */}
             <tbody>
-              {donation.map((DonationForm) => (
-                <tr>
-                  <td>{DonationForm.fullName}</td>
-                  <td>{DonationForm.TitleOfConsept}</td>
-                  <td>{DonationForm.typeOfneeds}</td>
-                  <td>
-                    <Link to={`/details/${DonationForm._id}`}>
-                      <span className="more_details_btn">
-                        المزيد من التفاصيل
-                      </span>
-                    </Link>
-                  </td>
-                </tr>
-              ))}
+              {donation.map((DonationForm) => {
+                if (DonationForm.isDeleted === false) {
+                  return (
+                    <tr>
+                      <td>{DonationForm.fullName}</td>
+                      <td>{DonationForm.TitleOfConsept}</td>
+                      <td>{DonationForm.typeOfneeds}</td>
+                      <td>
+                        <Link to={`/details/${DonationForm._id}`}>
+                          <span className="more_details_btn">
+                            المزيد من التفاصيل
+                          </span>
+                        </Link>
+                      </td>
+                    </tr>
+                  );
+                }
+                return null;
+              })}
             </tbody>
           </table>
         </div>

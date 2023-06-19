@@ -1,6 +1,8 @@
 import axios from "axios";
 import React from "react";
 import { useState } from "react";
+import Swal from "sweetalert2";
+
 function BenifactorForm() {
   const [formData, setFormData] = useState({
     beneficerId: "",
@@ -81,8 +83,15 @@ function BenifactorForm() {
       console.log("Error:", error.message);
     }
   };
-
-  console.log(">>>>", formData);
+  const showSuccessAlert = () => {
+    Swal.fire({
+      title: "تمت تعبئة طلبك بنجاح, سوف نقوم  بعرض طلبك بأقرب وقت ممكن",
+      icon: "success",
+      confirmButtonText: "OK",
+    }).then(() => {
+      window.location.href = "http://localhost:3000/";
+    });
+  };
 
   return (
     <div className=" mt-40">
@@ -424,8 +433,9 @@ function BenifactorForm() {
               <button
                 type="submit"
                 class="py-3 px-8 bg-green-400 text-white font-bold"
+                onClick={showSuccessAlert}
               >
-                Submit
+                تأكيد
               </button>
             </div>
           </form>

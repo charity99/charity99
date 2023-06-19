@@ -10,6 +10,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use("/images", express.static("images"));
+app.use("/reports", express.static("reports"));
 
 app.get("/", (req, res) => {
   res.send("Welcome");

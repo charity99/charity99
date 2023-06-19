@@ -62,6 +62,7 @@
 // module.exports = { handleAddForm };
 
 const form = require("../models/DonationForm");
+
 const acceptOrg = async (req, res) => {
   try {
     const userId = req.params.id;
@@ -77,7 +78,21 @@ const acceptOrg = async (req, res) => {
     res.status(500).json({ error: "Failed to update Donor" });
   }
 };
+const deleteForm = async (req, res) => {
+  try {
+    const userId = req.params.id;
 
+    const user = await form.findById(userId);
+    console.log(user);
+    user.isDeleted = true;
+
+    const updatedUser = await user.save();
+
+    res.json(updatedUser);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to delete form" });
+  }
+};
 const handleAddForm = async (req, res) => {
   const files = req.files;
   const userId = req.user._id;
@@ -245,4 +260,5 @@ module.exports = {
   getFormsbyID,
   getFormsbyBeneficerID,
   acceptOrg,
+  deleteForm,
 };
