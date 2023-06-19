@@ -4,10 +4,12 @@ import "../styles/details.css";
 import Sidebar from "../components/Sidebar/Sidebar";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 const Details = () => {
+  const navigate = useNavigate();
   const [details, setDetails] = useState([]);
+  const [totalPriceByAdmin, setTotalPriceByAdmin] = useState([]);
   const params = useParams();
   const { formId } = useParams();
   useEffect(() => {
@@ -21,13 +23,11 @@ const Details = () => {
     };
     fetchAllResort();
   }, []);
-
+  console.log(typeof totalPriceByAdmin);
   const handleAccept = (id) => {
     axios
-      .put("http://localhost:5000/getForms/accept/" + id)
-      .then((response) => {
-        console.log(response.data);
-      })
+      .put("http://localhost:5000/getForms/accept/" + id, totalPriceByAdmin)
+      .then((response) => {})
       .catch((error) => console.log(error.message));
     Swal.fire({
       position: "center",
@@ -40,9 +40,7 @@ const Details = () => {
   const handleDelete = async (id) => {
     axios
       .put("http://localhost:5000/getForms/delete/" + id)
-      .then((response) => {
-        console.log(response.data);
-      })
+      .then((response) => {})
       .catch((error) => console.log(error.message));
     Swal.fire({
       position: "center",
@@ -51,9 +49,15 @@ const Details = () => {
       showConfirmButton: false,
       timer: 1800,
     });
+    navigate("/dashboard");
   };
-
-  console.log(details);
+  function handleChange(e) {
+    setTotalPriceByAdmin({
+      ...totalPriceByAdmin,
+      [e.target.name]: e.target.value,
+    });
+  }
+  console.log(totalPriceByAdmin);
   return (
     <>
       <div className="containerr" dir="rtl">
@@ -95,15 +99,17 @@ const Details = () => {
               {`${details.city}/${details.streetName}/${details.buldingNumber}`}
             </p>
             <p className="p_story">قصتي: {details.DescriptionOfConsept}</p>
-            {/* {details.Images?.map((image, index) => (
-              <img
-                alt="image"
-                src={`http://localhost:5000/${image}`}
-                className="img-holder"
-                style={{ height: "300px" }}
-                key={index}
+            <div>
+              {" "}
+              <div>ادخل المبلغ</div>{" "}
+              <input
+                type="text"
+                name="totalPriceByAdmin"
+                onChange={handleChange}
+                id=""
+                className=" border border-black "
               />
-            ))} */}
+            </div>
             {details.medicalReport?.map((report, index) => (
               <div>
                 <div>

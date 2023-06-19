@@ -54,7 +54,7 @@ const DonationForm = new Schema(
     },
     totalPriceByAdmin: {
       type: Number,
-      default: 5000,
+      default: 0,
       // default: false,
       // required: true,
     },
