@@ -39,7 +39,7 @@ const HomePage = () => {
           <div class="rounded-md">
             {/* <HashLink smooth={true} to="#"> */}
             <button class="bg-gray-600 hover:bg-gray-700 text-white mt-8 px-16  font-bold py-4 border-2 rounded-lg">
-              ابدأ بجمع التبرعات الآن
+              ساعد بجمع التبرعات الآن
             </button>
             {/* </HashLink> */}
           </div>

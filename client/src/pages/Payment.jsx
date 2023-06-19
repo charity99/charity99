@@ -8,7 +8,6 @@ import jwtDecode from "jwt-decode";
 function Payment() {
   let params = useParams();
   let { formId } = useParams();
-  console.log(">>>>", params);
   const token = localStorage.getItem("token");
   let tokendonorId = "";
 
@@ -32,37 +31,37 @@ function Payment() {
   const handlePayment = () => {
     // submitPayment();
 
-    const cardNumber = document.getElementById("card-no").value;
-    const cardRegex = /^(4\d{15}|5\d{15})$/;
-    const today = new Date();
-    const currentMonth = today.getMonth() + 1;
-    const currentYear = today.getFullYear();
-    const [expirationMonth, expirationYear] = datecard.split("/");
+    // const cardNumber = document.getElementById("card-no").value;
+    // const cardRegex = /^(4\d{15}|5\d{15})$/;
+    // const today = new Date();
+    // const currentMonth = today.getMonth() + 1;
+    // const currentYear = today.getFullYear();
+    // const [expirationMonth, expirationYear] = datecard.split("/");
 
-    if (!cardnumber || !datecard || !cvc) {
-      showAlert("من فضلك أدخل كل معلومات بطاقتك");
-      return;
-    }
-    if (!cardRegex.test(cardNumber)) {
-      showAlert("رقم البطاقة غير صحيح");
-      return;
-    }
+    // if (!cardnumber || !datecard || !cvc) {
+    //   showAlert("من فضلك أدخل كل معلومات بطاقتك");
+    //   return;
+    // }
+    // if (!cardRegex.test(cardNumber)) {
+    //   showAlert("رقم البطاقة غير صحيح");
+    //   return;
+    // }
 
-    if (
-      Number(expirationYear) < currentYear ||
-      (Number(expirationYear) === currentYear &&
-        Number(expirationMonth) < currentMonth)
-    ) {
-      showAlert("البطاقة منتهية");
-      return;
-    }
+    // if (
+    //   Number(expirationYear) < currentYear ||
+    //   (Number(expirationYear) === currentYear &&
+    //     Number(expirationMonth) < currentMonth)
+    // ) {
+    //   showAlert("البطاقة منتهية");
+    //   return;
+    // }
 
-    const cvcRegex = /^\d{3}$/;
+    // const cvcRegex = /^\d{3}$/;
 
-    if (!cvcRegex.test(cvc)) {
-      showAlert("غير صحيح CVC");
-      return;
-    }
+    // if (!cvcRegex.test(cvc)) {
+    //   showAlert("غير صحيح CVC");
+    //   return;
+    // }
     submitPayment();
   };
 
