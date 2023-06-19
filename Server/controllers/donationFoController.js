@@ -62,6 +62,21 @@
 // module.exports = { handleAddForm };
 
 const form = require("../models/DonationForm");
+const acceptOrg = async (req, res) => {
+  try {
+    const userId = req.params.id;
+
+    const user = await form.findById(userId);
+    console.log(user);
+    user.isApproved = true;
+
+    const updatedUser = await user.save();
+
+    res.json(updatedUser);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to update Donor" });
+  }
+};
 
 const handleAddForm = async (req, res) => {
   const files = req.files;
@@ -222,10 +237,12 @@ const handleUpdateFormBydonor = async (req, res) => {
     return res.status(500).json({ message: "Error retrieving user data" });
   }
 };
+
 module.exports = {
   handleAddForm,
   getForms,
   handleUpdateFormBydonor,
   getFormsbyID,
   getFormsbyBeneficerID,
+  acceptOrg,
 };

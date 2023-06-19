@@ -1,12 +1,33 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
-
+import axios from "axios";
 const ProfilePage = () => {
-  const [password, setPassword] = useState("123456");
-  const [email, setemail] = useState("dania@ghoush.com");
-  const [user, setUser] = useState("Dania");
+  const [data, setData] = useState();
+  const [formData, setFormData] = useState();
+  useEffect(() => {
+    getUserData();
+  }, []);
+  const getUserData = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
 
+      const response = await axios.get(
+        `http://localhost:5000/getDonor`,
+        config
+      );
+      setData(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  console.log(".>>sad>>");
   return (
     <>
       <div className="p-16 bg-white mt-20">
@@ -26,26 +47,38 @@ const ProfilePage = () => {
                       <td class="whitespace-nowrap px-6 py-4 font-medium">
                         الاسم{" "}
                       </td>
-                      <td class="whitespace-nowrap px-6 py-4">{user}</td>
+                      <td class="whitespace-nowrap px-6 py-4">
+                        {" "}
+                        {data && data.fullName}
+                      </td>
                     </tr>
                     <tr class="border-b dark:border-neutral-500">
                       <td class="whitespace-nowrap px-6 py-4 font-medium">
                         البريد الالكتروني
                       </td>
-                      <td class="whitespace-nowrap px-6 py-4">{email}</td>
+                      <td class="whitespace-nowrap px-6 py-4">
+                        {" "}
+                        {data && data.email}
+                      </td>
                     </tr>
                     <tr class="border-b dark:border-neutral-500">
                       <td class="whitespace-nowrap px-6 py-4 font-medium">
-                        الرقم السري
+                        رقم الهاتف
                       </td>
-                      <td class="whitespace-nowrap px-6 py-4">{password}</td>
+                      <td class="whitespace-nowrap px-6 py-4">
+                        {" "}
+                        {data && data.phone ? data.phone : "لم تدخل رقم هاتفك"}
+                      </td>
                     </tr>
                   </tbody>
                 </table>
                 <div className="flex justify-center">
-                  <button class="bg-transparent hover:bg-blue-500 text-blue-700 mt-8  font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded mb-20">
-                    تعديل المعلومات الشخصية
-                  </button>
+                  {" "}
+                  <Link to="/EditProfile">
+                    <button class="bg-transparent hover:bg-blue-500 text-blue-700 mt-8  font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded mb-20">
+                      تعديل المعلومات الشخصية
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>

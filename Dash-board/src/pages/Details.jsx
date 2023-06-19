@@ -5,7 +5,7 @@ import Sidebar from "../components/Sidebar/Sidebar";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-
+import Swal from "sweetalert2";
 const Details = () => {
   const [details, setDetails] = useState([]);
   const params = useParams();
@@ -21,6 +21,23 @@ const Details = () => {
     };
     fetchAllResort();
   }, []);
+
+  const handleAccept = (id) => {
+    axios
+      .put("http://localhost:5000/getForms/accept/" + id)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => console.log(error.message));
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "تمت الموافقة بنجاح",
+      showConfirmButton: false,
+      timer: 1800,
+    });
+  };
+
   return (
     <>
       <div className="containerr" dir="rtl">
@@ -61,8 +78,12 @@ const Details = () => {
               {`${details.city}/${details.streetName}/${details.buldingNumber}`}
             </p>
             <p className="p_story">قصتي: {details.DescriptionOfConsept}</p>
+            <div className="approve_req">
+              <button onClick={() => handleAccept(details._id)}>
+                <i class="fa-solid fa-check yes"></i>
+              </button>
+            </div>
           </div>
-          <div className="approve_req"></div>
         </div>
       </div>
     </>

@@ -100,6 +100,7 @@ router.get(
 );
 router.post("/formByDonor", donationForm.handleUpdateFormBydonor);
 router.post("/donorPaid", donorController.handleUpdateDonorOnPaid);
+router.put("/getForms/accept/:id", donationForm.acceptOrg);
 
 ////////////////////
 
