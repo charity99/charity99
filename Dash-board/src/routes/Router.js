@@ -12,17 +12,14 @@ import Details from "../pages/Details";
 const Router = () => {
   return (
     <Routes>
-      <Route
-        path="/"
-        element={<Navigate to="/login" element={<Login />} />}
-      />
+      <Route path="/" element={<Navigate to="/login" element={<Login />} />} />
       <Route path="/login" element={<Login />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/users-admin" element={<Bookings />} />
       <Route path="/benefactor-admin" element={<SellCar />} />
       <Route path="/settings-admin" element={<Settings />} />
       <Route path="/about-admin" element={<About />} />
-      <Route path="/details" element={<Details />} />
+      <Route path="/details/:formId" element={<Details />} />
     </Routes>
   );
 };

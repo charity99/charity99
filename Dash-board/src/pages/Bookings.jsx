@@ -7,7 +7,7 @@ import Sidebar from "../components/Sidebar/Sidebar";
 
 const Bookings = () => {
   const [beneficer, setBeneficer] = useState([]);
-
+  const [isDeletedd, setIsDeleted] = useState(false);
   useEffect(() => {
     const fetchAllResort = async () => {
       try {
@@ -18,15 +18,24 @@ const Bookings = () => {
       }
     };
     fetchAllResort();
-  }, []);
-
+  }, [isDeletedd]);
   const handleDelete = async (id) => {
     try {
-      await axios.delete("http://localhost:5000/resort/" + id);
-      window.location.reload();
+      const token = localStorage.getItem("token");
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const isDeleted = true;
+      await axios.put(
+        `http://localhost:5000/deleteBeneficer/${id}`,
+        { isDeleted },
+        config
+      );
+      setIsDeleted(!isDeletedd);
     } catch {}
   };
-  console.log(beneficer);
   return (
     <div className="bookings" dir="rtl">
       <Sidebar />
@@ -52,17 +61,25 @@ const Bookings = () => {
                 {/* *****************user info************** */}
                 <tbody>
                   {beneficer.map((getAllBeneficer) => (
-                    <tr>
-                      <td>{getAllBeneficer.fullName}</td>
-                      <td>{getAllBeneficer.role}</td>
-                      <td>{getAllBeneficer.email}</td>
-                      <td>
-                        <i
-                          className="ri-delete-bin-6-fill delete__icon"
-                          onClick={() => handleDelete(getAllBeneficer.id)}
-                        ></i>
-                      </td>
-                    </tr>
+                    <>
+                      {getAllBeneficer.isDeleted == false && (
+                        <tr>
+                          <td>{getAllBeneficer.fullName}</td>
+                          <td>{getAllBeneficer.role}</td>
+                          <td>{getAllBeneficer.email}</td>
+                          <td>
+                            <button>
+                              <i
+                                className="ri-delete-bin-6-fill delete__icon"
+                                onClick={() =>
+                                  handleDelete(getAllBeneficer._id)
+                                }
+                              ></i>
+                            </button>
+                          </td>
+                        </tr>
+                      )}
+                    </>
                   ))}
                 </tbody>
               </table>

@@ -47,7 +47,6 @@ const Dashboard = () => {
     };
     fetchAllResort();
   }, []);
-
   return (
     <div className="dashboard" dir="rtl">
       <Sidebar />
@@ -94,7 +93,7 @@ const Dashboard = () => {
                   <td>{DonationForm.TitleOfConsept}</td>
                   <td>{DonationForm.typeOfneeds}</td>
                   <td>
-                    <Link to="/about-admin">
+                    <Link to={`/details/${DonationForm._id}`}>
                       <span className="more_details_btn">
                         المزيد من التفاصيل
                       </span>
