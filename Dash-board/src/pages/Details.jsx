@@ -37,7 +37,23 @@ const Details = () => {
       timer: 1800,
     });
   };
+  const handleDelete = async (id) => {
+    axios
+      .put("http://localhost:5000/getForms/delete/" + id)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => console.log(error.message));
+    Swal.fire({
+      position: "center",
+      icon: "failed",
+      title: "تمت الحذف بنجاح",
+      showConfirmButton: false,
+      timer: 1800,
+    });
+  };
 
+  console.log(details);
   return (
     <>
       <div className="containerr" dir="rtl">
@@ -66,6 +82,7 @@ const Details = () => {
               />
             ))}
           </div>
+
           <div className="basic-info">
             <h1>بيانات الطلب</h1>
           </div>
@@ -78,9 +95,35 @@ const Details = () => {
               {`${details.city}/${details.streetName}/${details.buldingNumber}`}
             </p>
             <p className="p_story">قصتي: {details.DescriptionOfConsept}</p>
+            {/* {details.Images?.map((image, index) => (
+              <img
+                alt="image"
+                src={`http://localhost:5000/${image}`}
+                className="img-holder"
+                style={{ height: "300px" }}
+                key={index}
+              />
+            ))} */}
+            {details.medicalReport?.map((report, index) => (
+              <div>
+                <div>
+                  <a
+                    target="_blank"
+                    href={`http://localhost:5000/${report}`}
+                    download
+                  >
+                    Click here to download the Reports
+                  </a>
+                </div>
+              </div>
+            ))}
+
             <div className="approve_req">
               <button onClick={() => handleAccept(details._id)}>
                 <i class="fa-solid fa-check yes"></i>
+              </button>
+              <button onClick={() => handleDelete(details._id)}>
+                <i className="ri-delete-bin-6-fill delete__icon"></i>
               </button>
             </div>
           </div>

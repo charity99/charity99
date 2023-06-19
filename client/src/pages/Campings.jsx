@@ -105,58 +105,62 @@ const ServiceAll = () => {
         </div>
         {/* عرض الفوائد */}
         <div className="flex flex-wrap gap-10 justify-center my-16 pagenation">
-          {currentBenefices.map((benefice) => (
-            <div key={benefice._id}>
-              <div key={benefice._id}>
-                <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-lg hover:shadow-xl transform transition duration-300 hover:scale-105 dark:bg-gray-800 dark:border-gray-700">
-                  <Link href="#" className="h-40">
-                    {benefice.Images &&
-                      benefice.Images.slice(0, 1).map((image, index) => (
-                        <img
-                          key={index}
-                          src={`http://localhost:5000/${image}`}
-                          alt={`Image ${index}`}
-                        />
-                      ))}
-                  </Link>
-                  <div className="p-5">
-                    <a href="#">
-                      <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 text-center dark:text-white">
-                        {benefice.fullName}
-                      </h5>
-                    </a>
-                    <div className="w-full bg-gray-200 mt-4 rounded-full dark:bg-gray-700">
-                      <div
-                        className="bg-blue-600 text-xs font-medium text-blue-100 mb-4 text-center p-0.5 leading-none rounded-full"
-                        style={{ width: "50px" }}
-                      >
-                        {benefice.progress}%
-                      </div>
-                    </div>
-                    <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                      {benefice.TitleOfConsept}
-                    </p>
-                    <p>المبلغ المطلوب:{benefice.totalPriceByAdmin}</p>
-                    <p>نوع المساعدة :{benefice.typeOfneeds}</p>
+          {currentBenefices.map((benefice) => {
+            if (benefice.isApproved) {
+              return (
+                <div key={benefice._id}>
+                  <div key={benefice._id}>
+                    <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-lg hover:shadow-xl transform transition duration-300 hover:scale-105 dark:bg-gray-800 dark:border-gray-700">
+                      <Link href="#" className="h-40">
+                        {benefice.Images &&
+                          benefice.Images.slice(0, 1).map((image, index) => (
+                            <img
+                              key={index}
+                              src={`http://localhost:5000/${image}`}
+                              alt={`Image ${index}`}
+                            />
+                          ))}
+                      </Link>
+                      <div className="p-5">
+                        <a href="#">
+                          <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 text-center dark:text-white">
+                            {benefice.fullName}
+                          </h5>
+                        </a>
+                        <div className="w-full bg-gray-200 mt-4 rounded-full dark:bg-gray-700">
+                          <div
+                            className="bg-blue-600 text-xs font-medium text-blue-100 mb-4 text-center p-0.5 leading-none rounded-full"
+                            style={{ width: "50px" }}
+                          >
+                            {benefice.progress}%
+                          </div>
+                        </div>
+                        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                          {benefice.TitleOfConsept}
+                        </p>
+                        <p>المبلغ المطلوب: {benefice.totalPriceByAdmin}</p>
+                        <p>نوع المساعدة: {benefice.typeOfneeds}</p>
 
-                    <div class="flex justify-center mt-4 bg-[#8dbbd0] p-1 gap-2">
-                      {" "}
-                      <Link to={`/pay/${benefice._id}`}>
-                        <button class="bg-gray-300 hover:bg-gray-400 text-gray-800  font-bold py-2 ps-14 pe-14 rounded-l">
-                          تبرع الان
-                        </button>{" "}
-                      </Link>
-                      <Link to={`/BenDetails/${benefice._id}`}>
-                        <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 ps-14 pe-14 rounded-r">
-                          رؤية المزيد
-                        </button>{" "}
-                      </Link>
+                        <div className="flex justify-center mt-4 bg-[#8dbbd0] p-1 gap-2">
+                          <Link to={`/pay/${benefice._id}`}>
+                            <button className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 ps-14 pe-14 rounded-l">
+                              تبرع الآن
+                            </button>
+                          </Link>
+                          <Link to={`/BenDetails/${benefice._id}`}>
+                            <button className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 ps-14 pe-14 rounded-r">
+                              رؤية المزيد
+                            </button>
+                          </Link>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          ))}
+              );
+            }
+            return null;
+          })}
           {/* ))} */}
         </div>
         {/* الترقيم */}
