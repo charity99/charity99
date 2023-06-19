@@ -19,6 +19,13 @@ const Bookings = () => {
     };
     fetchAllResort();
   }, []);
+
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete("http://localhost:5000/resort/" + id);
+      window.location.reload();
+    } catch {}
+  };
   console.log(beneficer);
   return (
     <div className="bookings" dir="rtl">
@@ -50,7 +57,10 @@ const Bookings = () => {
                       <td>{getAllBeneficer.role}</td>
                       <td>{getAllBeneficer.email}</td>
                       <td>
-                        <i className="ri-delete-bin-6-fill delete__icon"></i>
+                        <i
+                          className="ri-delete-bin-6-fill delete__icon"
+                          onClick={() => handleDelete(getAllBeneficer.id)}
+                        ></i>
                       </td>
                     </tr>
                   ))}

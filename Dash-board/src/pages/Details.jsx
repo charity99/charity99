@@ -2,11 +2,27 @@ import React from "react";
 import img from "../assets/images/image.png";
 import "../styles/details.css";
 import Sidebar from "../components/Sidebar/Sidebar";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const Details = () => {
+  const [details, setDetails] = useState([]);
+
+  useEffect(() => {
+    const fetchAllResort = async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/getAllBeneficer");
+        setDetails(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchAllResort();
+  }, []);
   return (
     <>
       <div className="containerr" dir="rtl">
+        <Sidebar />
         <div className="box">
           <div className="images">
             <div className="img-holder active">
@@ -25,13 +41,20 @@ const Details = () => {
           <div className="basic-info">
             <h1>بيانات الطلب</h1>
           </div>
-          <div className="info">
-            <p>الأسم:</p>
-            <p>رقم الهاتف:</p>
-            <p>البريد الألكتروني:</p>
-            <p>العنوان:</p>
-            <p className="p_story">قصتي:</p>
-          </div>
+          {details.map((DonationForm) => (
+            <div className="info">
+              <p>الأسم: {DonationForm.fullName}</p>
+              <p>رقم الهاتف: {DonationForm.phone}</p>
+              <p>البريد الألكتروني: {DonationForm.email}</p>
+              <p>
+                العنوان:{" "}
+                {`${DonationForm.city}/${DonationForm.streetName}/${DonationForm.buldingNumber}`}
+              </p>
+              <p className="p_story">
+                قصتي: {DonationForm.DescriptionOfConsept}
+              </p>
+            </div>
+          ))}
           <div className="approve_req"></div>
         </div>
       </div>
