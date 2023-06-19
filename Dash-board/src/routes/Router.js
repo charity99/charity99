@@ -7,6 +7,7 @@ import SellCar from "../pages/SellCar";
 import Settings from "../pages/Settings";
 import About from "../pages/About";
 import Login from "../pages/Login";
+import Details from "../pages/Details";
 
 const Router = () => {
   return (
@@ -21,6 +22,7 @@ const Router = () => {
       <Route path="/benefactor-admin" element={<SellCar />} />
       <Route path="/settings-admin" element={<Settings />} />
       <Route path="/about-admin" element={<About />} />
+      <Route path="/details" element={<Details />} />
     </Routes>
   );
 };
