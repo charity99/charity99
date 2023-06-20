@@ -6,6 +6,7 @@ import video3 from "../images/video3.mp4";
 import video5 from "../images/video5.mp4";
 // import { HashLink } from 'react-router-hash-link';
 
+
 const HomePage = () => {
   return (
     <>
@@ -20,11 +21,7 @@ const HomePage = () => {
             loop={true}
           />
           <div className="layer"></div>
-          {/* <img
-            src="https://hrarchz.com/wp-content/uploads/2019/12/Black-Dinning-Room-HRarchZ-4.jpg"
-            alt="image 2"
-            className="h-full w-full object-cover"
-          /> */}
+
         </div>
         <div
           className="video-content space-y-2 z-10 pb-5"
